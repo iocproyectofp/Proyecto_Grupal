@@ -339,7 +339,7 @@ public class Proyecto_JBCN {
         int conRepetir = 0;
         int repetido = 0;
         do{
-            conRepetir++;  
+            //conRepetir++;  
                         
             
             //Evaluamos cuantos registros se han completado y mostramos un mensaje
@@ -441,7 +441,7 @@ public class Proyecto_JBCN {
                     
                     System.out.println(); //salto de línea 
                     
-                    if(conRepetir <2)
+                    if(conRepetir < 1)
                     {
                         System.out.print("¿Quieres volver a imprimir? Si(1)-No(2): ");
                         repetido = entrada.nextInt();                                                
@@ -449,7 +449,11 @@ public class Proyecto_JBCN {
                     
                     if(repetido == 2)
                     {
-                        conRepetir++;
+                       conRepetir++;
+                    }
+                    else if(repetido == 1)
+                    {
+                        System.out.println("Se ha repetido.");
                     }
                     
                 }
@@ -459,7 +463,9 @@ public class Proyecto_JBCN {
             {
                 System.out.println("\nNo se ha registrado ningún participante.");
             }
-        }while((conRepetir < 2) && (!repetir));
+            
+            conRepetir++;
+        }while((conRepetir < 2));
 
     }
 
