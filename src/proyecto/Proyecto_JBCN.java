@@ -56,7 +56,7 @@ public class Proyecto_JBCN {
     public static final int MAX_INTENTOS = 3;
     public static final int SEGUIR_MIN = 0;
     public static final int SEGUIR_MAX = 1;
-    public static final int MAX_REGISTROS = 10;
+    public static final int MAX_REGISTROS = 3;
     
     //Mensaje de error
     public static final String FUERA_RANGO = "El dato debe estar comprendido entre: ";
@@ -163,19 +163,6 @@ public class Proyecto_JBCN {
             if(tipoCorrecto)
             {
                 intentos = 0; //Reseteamos el valor de "intentos"
-                switch(generos[contRegistros])
-                {
-                    case MUJER:
-                        generoTipo = OP_MUJER;
-                        break;
-
-                    case HOMBRE:
-                        generoTipo = OP_HOMBRE;
-                        break;
-
-                    case NO_RESPONDE:
-                        generoTipo = OP_NO_RESPONDE;
-                } 
                 //Repite mientras tipoCorrecto = false e intentos < MAX_INTENTOS
                 do
                 {
@@ -211,24 +198,7 @@ public class Proyecto_JBCN {
             //Si cumple el rango asignamos a opcionParticipante la opción seleccionada
             if(tipoCorrecto)
             { 
-                intentos = 0; //Reseteamos el valor de "intentos"
-                switch(participantes[contRegistros])
-                {
-                    case GENERAL:
-                        opcionParticipante = OP_GENERAL;
-                        break;
-
-                    case EDUCACION:
-                        opcionParticipante = OP_EDUCACION;
-                        break;
-
-                    case EMPRESA:
-                        opcionParticipante = OP_EMPRESA;
-                        break;
-
-                    case PRENSA:
-                        opcionParticipante = OP_PRENSA;
-                }
+                intentos = 0; //Reseteamos el valor de "intentos"                
                 //Repite mientras tipoCorrecto = false e intentos < MAX_INTENTOS
                 do
                 {
@@ -263,41 +233,35 @@ public class Proyecto_JBCN {
             if(tipoCorrecto)
             {
                 intentos = 0; //Reseteamos el valor de "intentos"
-                switch(daSesiones[contRegistros])
+                if(daSesiones[contRegistros] == SESION_MAX) 
                 {
-                    case SESION_MIN:
-                        sesion = NO_SESION;                      
-                        break;
-
-                    case SESION_MAX:
-                        sesion = SI_SESION;  
-                        //Repite mientras tipoCorrecto = false e intentos < MAX_INTENTOS
-                        do
+                    //Repite mientras tipoCorrecto = false e intentos < MAX_INTENTOS
+                    do
+                    {
+                        //Si elige dar sesión preguntamos ID
+                        System.out.print("\nID Sesión (" + ID_MIN + "-" + ID_MAX + "):");
+                        //Evaluamos entero y rango
+                        tipoCorrecto = entrada.hasNextInt();
+                        if(tipoCorrecto)
                         {
-                            //Si elige dar sesión preguntamos ID
-                            System.out.print("\nID Sesión (" + ID_MIN + "-" + ID_MAX + "):");
-                            //Evaluamos entero y rango
-                            tipoCorrecto = entrada.hasNextInt();
-                            if(tipoCorrecto)
+                            idSesiones[contRegistros] = entrada.nextInt();
+                            if((idSesiones[contRegistros] < ID_MIN) || (idSesiones[contRegistros] > ID_MAX))
                             {
-                                idSesiones[contRegistros] = entrada.nextInt();
-                                if((idSesiones[contRegistros] < ID_MIN) || (idSesiones[contRegistros] > ID_MAX))
-                                {
-                                    tipoCorrecto = false;
-                                    System.out.println(FUERA_RANGO + ID_MIN + 
-                                                       " y " + ID_MAX + "\n");
-                                    intentos++; //incrementamos intentos por cada error
-                                }
-                            }else
-                            {
-                                System.out.println(NO_ENTERO); //Mensaje error
-                                entrada.next(); //liberamos buffer
+                                tipoCorrecto = false;
+                                System.out.println(FUERA_RANGO + ID_MIN + 
+                                                   " y " + ID_MAX + "\n");
                                 intentos++; //incrementamos intentos por cada error
                             }
-                            
-                        }while((!tipoCorrecto) && (intentos < MAX_INTENTOS));
-                        break;
-                    }
+                        }else
+                        {
+                            System.out.println(NO_ENTERO); //Mensaje error
+                            entrada.next(); //liberamos buffer
+                            intentos++; //incrementamos intentos por cada error
+                        }
+
+                    }while((!tipoCorrecto) && (intentos < MAX_INTENTOS));
+                      
+                }
 
             }
             //Si cumple el rango preguntamos por los años de experiencia
@@ -335,87 +299,144 @@ public class Proyecto_JBCN {
                     
                 }while((!tipoCorrecto) && (intentos < MAX_INTENTOS));
             }
-            //Si cumple ser entero y rango de todas las opciones anteriores, mostramos datos
-            if(tipoCorrecto)
+            
+            //Repite mientras tipoCorrecto = false (en este punto, no evaluamos intentos).
+            if(contRegistros < MAX_REGISTROS)
             {
-                
-                //registrosEntrados++; //Si llegamos a este punto, contabilizamos el registro                
-                if(sesion == SI_SESION)//Si da sesión, mostramos los datos CON el ID sesión
-                {              
-                    // Si idSesión es < 10 añadimos un "0" delante para que muestre 2 dígitos
-                    if(idSesiones[contRegistros]<10)
+                do
+                {
+                    System.out.print("\nIntroducir más registros SI(1) - NO(0):");
+                    tipoCorrecto = entrada.hasNextInt();
+                    if(tipoCorrecto)
                     {
-                        System.out.println(); //salto de línea
-                        System.out.println("---------------------------------------"+
-                                           "------------------------------------\n" +
-                                           CABECERA + codigos[contRegistros] + "\t\t" + generoTipo + 
-                                           opcionParticipante + sesion + "0" + idSesiones[contRegistros] + 
-                                           "\t\t" + anosExperiencia[contRegistros] + "\n" +
-                                           "-------------------------------------"+
-                                           "--------------------------------------"); 
+                        seguir = entrada.nextInt();
+                        if((seguir < SEGUIR_MIN) || seguir > SEGUIR_MAX)
+                        {
+                            tipoCorrecto = false;
+                            System.out.println(FUERA_RANGO + SEGUIR_MIN + 
+                                               " y " + SEGUIR_MAX + "\n");                       
+                        }          
                     }else
                     {
-                        System.out.println(); //salto de línea
-                        System.out.println("---------------------------------------"+
-                                           "------------------------------------\n" +
-                                           CABECERA + codigos[contRegistros] + "\t\t" + generoTipo + 
-                                           opcionParticipante + sesion + idSesiones[contRegistros] + 
-                                           "\t\t" + anosExperiencia[contRegistros] + "\n" +
-                                           "-------------------------------------"+
-                                           "--------------------------------------");
-                    }                    
-                }else //Si NO da sesión, mostramos los datos SIN el ID sesión
-                {
-                    System.out.println(); //salto de línea
-                    System.out.println("---------------------------------------" +
-                                       "------------------------------------\n" +
-                                       CABECERA + codigos[contRegistros] + "\t\t" + generoTipo + 
-                                       opcionParticipante + sesion + "\t\t" + 
-                                       anosExperiencia[contRegistros] + "\n" +
-                                       "-------------------------------------"+
-                                       "--------------------------------------");                     
-                }
-            }else //Mensaje dato incorrecto en cualquiera de las preguntas durante ejecución
-            {
-                System.out.println("\nDato Incorrecto. Has superado " + intentos + " intentos");
-            }            
-            
-            //Una vez finalizado el registro, preguntamos si queremos introducir mas            
-            System.out.println(); //salto de línea            
-            //Repite mientras tipoCorrecto = false (en este punto, no evaluamos intentos).
-            do
-            {
-                System.out.print("\nIntroducir más registros SI(1) - NO(0):");
-                tipoCorrecto = entrada.hasNextInt();
-                if(tipoCorrecto)
-                {
-                    seguir = entrada.nextInt();
-                    if((seguir < SEGUIR_MIN) || seguir > SEGUIR_MAX)
+                        System.out.println(NO_ENTERO); //Mensaje error
+                        entrada.next(); //liberamos buffer                    
+                    }       
+                    //Si el valor de "seguir" es = 1 iniciamos nuevo el registro
+                    if(seguir == 1)
                     {
-                        tipoCorrecto = false;
-                        System.out.println(FUERA_RANGO + SEGUIR_MIN + 
-                                           " y " + SEGUIR_MAX + "\n");                       
-                    }          
-                }else
-                {
-                    System.out.println(NO_ENTERO); //Mensaje error
-                    entrada.next(); //liberamos buffer                    
-                }       
-                //Si el valor de "seguir" es = 1 iniciamos nuevo el registro
-                if(seguir == 1)
-                {
-                    introducirMas = true;
-                    intentos = 0; //Reseteamos el valor de "intentos para el siguiente registro"
-                    System.out.println(); //salto de línea
-                }                
-                
-            }while((!tipoCorrecto));
+                        introducirMas = true;
+                        tipoCorrecto = true;
+                        intentos = 0; //Reseteamos el valor de "intentos para el siguiente registro"
+                        System.out.println(); //salto de línea
+                    }                
+
+                }while(!tipoCorrecto);
+            }
            
-        }while(introducirMas);
+        }while((introducirMas) && (contRegistros < MAX_REGISTROS));
         
         //Evaluamos cuantos registros se han completado y mostramos un mensaje
         if(contRegistros > 0) //Si al menos hemos completado un registro...
         {
+            //Evaluamos las opciones elegidas por el usuario e imprimismo
+            for(int i = 0; i < contRegistros; i++)
+            {
+                //Asignamos el valor del array 'generos' con la opción seleccionada por el usuario
+                switch(generos[i])
+                {
+                    case MUJER:
+                        generoTipo = OP_MUJER;
+                        break;
+
+                    case HOMBRE:
+                        generoTipo = OP_HOMBRE;
+                        break;
+
+                    case NO_RESPONDE:
+                        generoTipo = OP_NO_RESPONDE;
+                        break;
+                } 
+                
+                //Asignamos el valor del array 'participantes' con la opción seleccionada por el usuario
+                switch(participantes[i])
+                {
+                    case GENERAL:
+                        opcionParticipante = OP_GENERAL;
+                        break;
+
+                    case EDUCACION:
+                        opcionParticipante = OP_EDUCACION;
+                        break;
+
+                    case EMPRESA:
+                        opcionParticipante = OP_EMPRESA;
+                        break;
+
+                    case PRENSA:
+                        opcionParticipante = OP_PRENSA;
+                }
+                
+                //Asignamos el valor del array 'participantes' con la opción seleccionada por el usuario
+                 switch(daSesiones[i])
+                {
+                    case SESION_MIN:
+                        sesion = NO_SESION;                      
+                        break;
+
+                    case SESION_MAX:
+                        sesion = SI_SESION; 
+			break; 
+		}
+                 
+                //Imprimimos
+                if((tipoCorrecto) && (contRegistros < MAX_REGISTROS))
+                {
+
+                    //registrosEntrados++; //Si llegamos a este punto, contabilizamos el registro                
+                    if(sesion == SI_SESION)//Si da sesión, mostramos los datos CON el ID sesión
+                    {              
+                        // Si idSesión es < 10 añadimos un "0" delante para que muestre 2 dígitos
+                        if(idSesiones[contRegistros]<10)
+                        {
+                            System.out.println(); //salto de línea
+                            System.out.println("---------------------------------------"+
+                                               "------------------------------------\n" +
+                                               CABECERA + codigos[i] + "\t\t" + generoTipo + 
+                                               opcionParticipante + sesion + "0" + idSesiones[i] + 
+                                               "\t\t" + anosExperiencia[i] + "\n" +
+                                               "-------------------------------------"+
+                                               "--------------------------------------"); 
+                        }else
+                        {
+                            System.out.println(); //salto de línea
+                            System.out.println("---------------------------------------"+
+                                               "------------------------------------\n" +
+                                               CABECERA + codigos[i] + "\t\t" + generoTipo + 
+                                               opcionParticipante + sesion + idSesiones[i] + 
+                                               "\t\t" + anosExperiencia[i] + "\n" +
+                                               "-------------------------------------"+
+                                               "--------------------------------------");
+                        }                    
+                    }else //Si NO da sesión, mostramos los datos SIN el ID sesión
+                    {
+                        System.out.println(); //salto de línea
+                        System.out.println("---------------------------------------" +
+                                           "------------------------------------\n" +
+                                           CABECERA + codigos[i] + "\t\t" + generoTipo + 
+                                           opcionParticipante + sesion + "\t\t" + 
+                                           anosExperiencia[i] + "\n" +
+                                           "-------------------------------------"+
+                                           "--------------------------------------");                     
+                    }
+                }else //Mensaje dato incorrecto en cualquiera de las preguntas durante ejecución
+                {
+                    System.out.println("\nDato Incorrecto. Has superado " + intentos + " intentos");
+                }            
+
+                //Una vez finalizado el registro, preguntamos si queremos introducir mas            
+                System.out.println(); //salto de línea 
+            }
+            
             System.out.println("\nSe han incrito: " + contRegistros + " participante/s nuev@/s");
         }else //Si no se ha completado ningún registro completo...
         {
