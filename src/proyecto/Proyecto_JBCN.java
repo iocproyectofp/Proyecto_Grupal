@@ -338,13 +338,9 @@ public class Proyecto_JBCN {
         boolean repetir = false;
         int conRepetir = 0;
         int repetido = 0;
-        while(!repetir){
-            
-            if(repetido == 1)
-            {
-                conRepetir++;  
-                repetir = true;
-            }
+        do{
+            conRepetir++;  
+                        
             
             //Evaluamos cuantos registros se han completado y mostramos un mensaje
             if(contRegistros > 0) //Si al menos hemos completado un registro...
@@ -445,12 +441,16 @@ public class Proyecto_JBCN {
                     
                     System.out.println(); //salto de línea 
                     
-                    if(conRepetir <1)
+                    if(conRepetir <2)
                     {
-                        System.out.print("¿Quieres volver a imprimir? Si(1)-No(0): ");
-                        repetido = entrada.nextInt();
-                                                
-                    }                    
+                        System.out.print("¿Quieres volver a imprimir? Si(1)-No(2): ");
+                        repetido = entrada.nextInt();                                                
+                    }   
+                    
+                    if(repetido == 2)
+                    {
+                        conRepetir++;
+                    }
                     
                 }
 
@@ -459,7 +459,7 @@ public class Proyecto_JBCN {
             {
                 System.out.println("\nNo se ha registrado ningún participante.");
             }
-        }
+        }while((conRepetir < 2) && (!repetir));
 
     }
 
