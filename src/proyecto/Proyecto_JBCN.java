@@ -56,7 +56,7 @@ public class Proyecto_JBCN {
     public static final int MAX_INTENTOS = 3;
     public static final int SEGUIR_MIN = 0;
     public static final int SEGUIR_MAX = 1;
-    public static final int MAX_REGISTROS = 3;
+    public static final int MAX_REGISTROS = 2;
     
     //Mensaje de error
     public static final String FUERA_RANGO = "El dato debe estar comprendido entre: ";
@@ -389,14 +389,14 @@ public class Proyecto_JBCN {
 		}
                  
                 //Imprimimos
-                if((tipoCorrecto) && (contRegistros < MAX_REGISTROS))
+                if((tipoCorrecto) || (contRegistros < MAX_REGISTROS))
                 {
 
                     //registrosEntrados++; //Si llegamos a este punto, contabilizamos el registro                
                     if(sesion == SI_SESION)//Si da sesión, mostramos los datos CON el ID sesión
                     {              
                         // Si idSesión es < 10 añadimos un "0" delante para que muestre 2 dígitos
-                        if(idSesiones[contRegistros]<10)
+                        if(idSesiones[i]<10)
                         {
                             System.out.println(); //salto de línea
                             System.out.println("---------------------------------------"+
