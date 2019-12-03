@@ -76,7 +76,7 @@ public class Proyecto_JBCN {
         
         String generoTipo="", opcionParticipante="", sesion="";
         
-        boolean tipoCorrecto = true, introducirMas;
+        boolean tipoCorrecto = true, introducirMas, duplicado = false;
         //Fin declaración variables //
         
         //Declaración de arrays
@@ -107,17 +107,40 @@ public class Proyecto_JBCN {
                 if(tipoCorrecto)
                 {           
                     codigos[contRegistros] = entrada.nextInt();
-                    if((codigos[contRegistros] < COD_MIN) || (codigos[contRegistros] > COD_MAX))
+                    //Evaluamos si el código está duplicado
+                    if(contRegistros > 0)
                     {
-                        //Si no cumple el rango 
+                        //Recorremos el array desde el principio hasta el último valor entrado
+                        for(int i = 0; i < contRegistros; i++)
+                        {
+                            //Si encontramos coincidencia evaluamos 'duplicado' a true
+                            if(codigos[i] == codigos[contRegistros])
+                            {
+                                duplicado =  true;
+                            }
+                        }
+                    }
+                    //Si el valor no estra duplicado, evaluamos rango
+                    if(!duplicado)
+                    {
+                        if((codigos[contRegistros] < COD_MIN) || (codigos[contRegistros] > COD_MAX))
+                        {
+                            //Si no cumple el rango 
+                            tipoCorrecto = false;
+                            System.out.println(FUERA_RANGO + COD_MIN + " y " + COD_MAX + "\n");
+                            entrada.nextLine(); // liberamos buffer
+                            intentos++; //incrementamos intentos por cada error
+                        }
+                    }else
+                    {
+                        System.out.println("Error, registro duplicado.\n");
                         tipoCorrecto = false;
-                        System.out.println(FUERA_RANGO + COD_MIN + " y " + COD_MAX + "\n");
-                        intentos++; //incrementamos intentos por cada error
+                        duplicado = false;
                     }
                 }else
                 {
                     System.out.println(NO_ENTERO); //Mensaje error
-                    entrada.next(); //liberamos buffer
+                    entrada.nextLine(); //liberamos buffer
                     intentos++; //incrementamos intentos por cada error
                 }
                 
@@ -148,12 +171,13 @@ public class Proyecto_JBCN {
                             tipoCorrecto = false;
                             System.out.println(FUERA_RANGO + GENERO_MIN + 
                                                " y " + GENERO_MAX + "\n");
+                            entrada.nextLine(); //liberamos buffer
                             intentos++; //incrementamos intentos por cada error
                         }
                     }else
                     {
                         System.out.println(NO_ENTERO); //Mensaje error
-                        entrada.next(); //liberamos buffer
+                        entrada.nextLine(); //liberamos buffer
                         intentos++; //incrementamos intentos por cada error
                     }
                     
@@ -184,12 +208,13 @@ public class Proyecto_JBCN {
                             tipoCorrecto = false;
                             System.out.println(FUERA_RANGO + TIPO_MIN + 
                                                " y " + TIPO_MAX + "\n");
+                            entrada.nextLine(); //liberamos buffer
                             intentos++; //incrementamos intentos por cada error
                         }
                     }else
                     {
                         System.out.println(NO_ENTERO); //Mensaje error
-                        entrada.next(); //liberamos buffer
+                        entrada.nextLine(); //liberamos buffer
                         intentos++; //incrementamos intentos por cada error
                     }
                     
@@ -218,12 +243,13 @@ public class Proyecto_JBCN {
                             tipoCorrecto = false;
                             System.out.println(FUERA_RANGO + SESION_MIN + 
                                                " y " + SESION_MAX + "\n");
+                            entrada.nextLine(); //liberamos buffer
                             intentos++; //incrementamos intentos por cada error
                         }
                     }else
                     {
                         System.out.println(NO_ENTERO); //Mensaje error
-                        entrada.next(); //liberamos buffer
+                        entrada.nextLine(); //liberamos buffer
                         intentos++; //incrementamos intentos por cada error
                     }
                     
@@ -250,12 +276,13 @@ public class Proyecto_JBCN {
                                 tipoCorrecto = false;
                                 System.out.println(FUERA_RANGO + ID_MIN + 
                                                    " y " + ID_MAX + "\n");
+                                entrada.nextLine(); //liberamos buffer
                                 intentos++; //incrementamos intentos por cada error
                             }
                         }else
                         {
                             System.out.println(NO_ENTERO); //Mensaje error
-                            entrada.next(); //liberamos buffer
+                            entrada.nextLine(); //liberamos buffer
                             intentos++; //incrementamos intentos por cada error
                         }
 
@@ -282,12 +309,13 @@ public class Proyecto_JBCN {
                             tipoCorrecto = false;
                             System.out.println(FUERA_RANGO + EXPERIENCIA_MIN + 
                                                " y " + EXPERIENCIA_MAX + "\n");
+                            entrada.nextLine(); //liberamos buffer
                             intentos++; //incrementamos el valor de intentos por cada error
                         }
                     }else
                     {
                         System.out.println(NO_ENTERO); //Mensaje error
-                        entrada.next(); //liberamos buffer
+                        entrada.nextLine(); //liberamos buffer
                         intentos++; //incrementamos el valor de intentos por cada error
                     }
                     
@@ -298,6 +326,11 @@ public class Proyecto_JBCN {
                 
                     
                 }while((!tipoCorrecto) && (intentos < MAX_INTENTOS));
+            }
+            
+            if(intentos >= MAX_INTENTOS)
+            {
+                System.out.println("\nDato Incorrecto. Has superado " + intentos + " intentos");
             }
             
             //Preguntamos si quiere introducir más siempre que no hallmos llegado a 'MAX_REGISTROS'
@@ -315,12 +348,13 @@ public class Proyecto_JBCN {
                         {
                             tipoCorrecto = false;
                             System.out.println(FUERA_RANGO + SEGUIR_MIN + 
-                                               " y " + SEGUIR_MAX + "\n");                       
+                                               " y " + SEGUIR_MAX + "\n"); 
+                            entrada.nextLine(); //liberamos buffer
                         }          
                     }else
                     {
                         System.out.println(NO_ENTERO); //Mensaje error
-                        entrada.next(); //liberamos buffer                    
+                        entrada.next(); //liberamos buffer                 
                     }       
                     //Si el valor de "seguir" es = 1 iniciamos nuevo el registro
                     if(seguir == 1)
@@ -328,22 +362,26 @@ public class Proyecto_JBCN {
                         introducirMas = true;                        
                         intentos = 0; //Reseteamos el valor de "intentos para el siguiente registro"
                         System.out.println(); //salto de línea
-                    }                
+                    }
 
                 }while(!tipoCorrecto);
-            }
+            }            
+            
            
         }while((introducirMas) && (contRegistros < MAX_REGISTROS));
         
         boolean repetir = false;
         int conRepetir = 0;
         int repetido = 0;
-        do{
+        tipoCorrecto = true;
+        
             //conRepetir++;  
                         
             
-            //Evaluamos cuantos registros se han completado y mostramos un mensaje
-            if(contRegistros > 0) //Si al menos hemos completado un registro...
+        //Evaluamos cuantos registros se han completado y mostramos un mensaje
+        if(contRegistros > 0) //Si al menos hemos completado un registro...
+        {
+            do
             {
                 //Evaluamos las opciones elegidas por el usuario e imprimismo
                 for(int i = 0; i < contRegistros; i++)
@@ -396,7 +434,7 @@ public class Proyecto_JBCN {
                     }
 
                     //Imprimimos los resultados
-                    if((tipoCorrecto) || (contRegistros < MAX_REGISTROS))
+                    if((tipoCorrecto) /*|| (contRegistros < MAX_REGISTROS)*/)
                     {                         
                         //registrosEntrados++; //Si llegamos a este punto, contabilizamos el registro                
                         if(sesion == SI_SESION)//Si da sesión, mostramos los datos CON el ID sesión
@@ -434,39 +472,36 @@ public class Proyecto_JBCN {
                                                "-------------------------------------"+
                                                "--------------------------------------");                     
                         }
-                    }else //Mensaje dato incorrecto en cualquiera de las preguntas durante ejecución
-                    {
-                        System.out.println("\nDato Incorrecto. Has superado " + intentos + " intentos");
                     }
                     
-                    System.out.println(); //salto de línea 
-                    
-                    if(conRepetir < 1)
-                    {
-                        System.out.print("¿Quieres volver a imprimir? Si(1)-No(2): ");
-                        repetido = entrada.nextInt();                                                
-                    }   
-                    
-                    if(repetido == 2)
-                    {
-                       conRepetir++;
-                    }
-                    else if(repetido == 1)
-                    {
-                        System.out.println("Se ha repetido.");
-                    }
+                    System.out.println(); //salto de línea              
                     
                 }
+                
+                if(conRepetir < 1)
+                {
+                    System.out.print("¿Quieres volver a imprimir? Si(1)-No(2): ");
+                    repetido = entrada.nextInt();                                                
+                }   
 
-                System.out.println("\nSe han incrito: " + contRegistros + " participante/s nuev@/s");
-            }else //Si no se ha completado ningún registro completo...
-            {
-                System.out.println("\nNo se ha registrado ningún participante.");
-            }
+                if(repetido == 2)
+                {
+                   tipoCorrecto = false;
+                }
+                else if(repetido == 1)
+                {
+                    System.out.println("Se ha repetido.");
+                }
+                conRepetir++;
+            }while((conRepetir < 2) && (tipoCorrecto)); 
             
-            conRepetir++;
-        }while((conRepetir < 2));
-
+            System.out.println("\nSe han incrito: " + contRegistros + " participante/s nuev@/s");
+            
+        }else
+        {
+           System.out.println("\nNo se ha registrado ningún participante."); 
+        } 
+        
     }
 
 }
