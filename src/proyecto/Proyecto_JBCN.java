@@ -136,6 +136,7 @@ public class Proyecto_JBCN {
                         System.out.println("Error, registro duplicado.\n");
                         tipoCorrecto = false;
                         duplicado = false;
+                        intentos++; //incrementamos intentos por cada error
                     }
                 }else
                 {
@@ -177,7 +178,7 @@ public class Proyecto_JBCN {
                     }else
                     {
                         System.out.println(NO_ENTERO); //Mensaje error
-                        entrada.nextLine(); //liberamos buffer
+                        entrada.next(); //liberamos buffer
                         intentos++; //incrementamos intentos por cada error
                     }
                     
@@ -214,7 +215,7 @@ public class Proyecto_JBCN {
                     }else
                     {
                         System.out.println(NO_ENTERO); //Mensaje error
-                        entrada.nextLine(); //liberamos buffer
+                        entrada.next(); //liberamos buffer
                         intentos++; //incrementamos intentos por cada error
                     }
                     
@@ -249,7 +250,7 @@ public class Proyecto_JBCN {
                     }else
                     {
                         System.out.println(NO_ENTERO); //Mensaje error
-                        entrada.nextLine(); //liberamos buffer
+                        entrada.next(); //liberamos buffer
                         intentos++; //incrementamos intentos por cada error
                     }
                     
@@ -276,13 +277,13 @@ public class Proyecto_JBCN {
                                 tipoCorrecto = false;
                                 System.out.println(FUERA_RANGO + ID_MIN + 
                                                    " y " + ID_MAX + "\n");
-                                entrada.nextLine(); //liberamos buffer
+                                entrada.nextLine(); // liberamos buffer
                                 intentos++; //incrementamos intentos por cada error
                             }
                         }else
                         {
                             System.out.println(NO_ENTERO); //Mensaje error
-                            entrada.nextLine(); //liberamos buffer
+                            entrada.next(); // liberamos buffer
                             intentos++; //incrementamos intentos por cada error
                         }
 
@@ -315,7 +316,7 @@ public class Proyecto_JBCN {
                     }else
                     {
                         System.out.println(NO_ENTERO); //Mensaje error
-                        entrada.nextLine(); //liberamos buffer
+                        entrada.next(); //liberamos buffer
                         intentos++; //incrementamos el valor de intentos por cada error
                     }
                     
@@ -373,7 +374,7 @@ public class Proyecto_JBCN {
         boolean repetir = false;
         int conRepetir = 0;
         int repetido = 0;
-        tipoCorrecto = true;
+        //tipoCorrecto = true;
         
             //conRepetir++;  
                         
@@ -433,58 +434,55 @@ public class Proyecto_JBCN {
                             break; 
                     }
 
-                    //Imprimimos los resultados
-                    if((tipoCorrecto) /*|| (contRegistros < MAX_REGISTROS)*/)
-                    {                         
-                        //registrosEntrados++; //Si llegamos a este punto, contabilizamos el registro                
-                        if(sesion == SI_SESION)//Si da sesión, mostramos los datos CON el ID sesión
-                        {              
-                            // Si idSesión es < 10 añadimos un "0" delante para que muestre 2 dígitos
-                            if(idSesiones[i]<10)
-                            {
-                                System.out.println(); //salto de línea
-                                System.out.println("---------------------------------------"+
-                                                   "------------------------------------\n" +
-                                                   CABECERA + codigos[i] + "\t\t" + generoTipo + 
-                                                   opcionParticipante + sesion + "0" + idSesiones[i] + 
-                                                   "\t\t" + anosExperiencia[i] + "\n" +
-                                                   "-------------------------------------"+
-                                                   "--------------------------------------"); 
-                            }else
-                            {
-                                System.out.println(); //salto de línea
-                                System.out.println("---------------------------------------"+
-                                                   "------------------------------------\n" +
-                                                   CABECERA + codigos[i] + "\t\t" + generoTipo + 
-                                                   opcionParticipante + sesion + idSesiones[i] + 
-                                                   "\t\t" + anosExperiencia[i] + "\n" +
-                                                   "-------------------------------------"+
-                                                   "--------------------------------------");
-                            }                    
-                        }else //Si NO da sesión, mostramos los datos SIN el ID sesión
+                    //Imprimimos los resultados                                      
+                    //registrosEntrados++; //Si llegamos a este punto, contabilizamos el registro                
+                    if(sesion == SI_SESION)//Si da sesión, mostramos los datos CON el ID sesión
+                    {              
+                        // Si idSesión es < 10 añadimos un "0" delante para que muestre 2 dígitos
+                        if(idSesiones[i]<10)
                         {
                             System.out.println(); //salto de línea
-                            System.out.println("---------------------------------------" +
+                            System.out.println("---------------------------------------"+
                                                "------------------------------------\n" +
                                                CABECERA + codigos[i] + "\t\t" + generoTipo + 
-                                               opcionParticipante + sesion + "\t\t" + 
-                                               anosExperiencia[i] + "\n" +
+                                               opcionParticipante + sesion + "0" + idSesiones[i] + 
+                                               "\t\t" + anosExperiencia[i] + "\n" +
                                                "-------------------------------------"+
-                                               "--------------------------------------");                     
-                        }
+                                               "--------------------------------------"); 
+                        }else
+                        {
+                            System.out.println(); //salto de línea
+                            System.out.println("---------------------------------------"+
+                                               "------------------------------------\n" +
+                                               CABECERA + codigos[i] + "\t\t" + generoTipo + 
+                                               opcionParticipante + sesion + idSesiones[i] + 
+                                               "\t\t" + anosExperiencia[i] + "\n" +
+                                               "-------------------------------------"+
+                                               "--------------------------------------");
+                        }                    
+                    }else //Si NO da sesión, mostramos los datos SIN el ID sesión
+                    {
+                        System.out.println(); //salto de línea
+                        System.out.println("---------------------------------------" +
+                                           "------------------------------------\n" +
+                                           CABECERA + codigos[i] + "\t\t" + generoTipo + 
+                                           opcionParticipante + sesion + "\t\t" + 
+                                           anosExperiencia[i] + "\n" +
+                                           "-------------------------------------"+
+                                           "--------------------------------------");                     
                     }
-                    
-                    System.out.println(); //salto de línea              
-                    
+
+                    System.out.println(); //salto de línea                                  
                 }
                 
-                if(conRepetir < 1)
+                //Mostramos el mensaje en la primera vuelta del bucle y si se ha introducido + de un registro.
+                if((conRepetir < 1) && (contRegistros > 1))
                 {
-                    System.out.print("¿Quieres volver a imprimir? Si(1)-No(2): ");
+                    System.out.print("¿Quieres volver a imprimir? Si(1)-No(0): ");
                     repetido = entrada.nextInt();                                                
                 }   
 
-                if(repetido == 2)
+                if(repetido == 0)
                 {
                    tipoCorrecto = false;
                 }
@@ -492,7 +490,16 @@ public class Proyecto_JBCN {
                 {
                     System.out.println("Se ha repetido.");
                 }
-                conRepetir++;
+                
+                //Evaluamos si se ha introduci mas de un registro
+                if(contRegistros > 1) //Máximo 2 vueltas
+                {
+                    conRepetir++;
+                }else //Máximo 1 vuelta
+                {
+                    conRepetir = 2;
+                }
+                
             }while((conRepetir < 2) && (tipoCorrecto)); 
             
             System.out.println("\nSe han incrito: " + contRegistros + " participante/s nuev@/s");
