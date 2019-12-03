@@ -120,7 +120,7 @@ public class Proyecto_JBCN {
                             }
                         }
                     }
-                    //Si el valor no estra duplicado, evaluamos rango
+                    //Si el valor no esta duplicado, evaluamos rango
                     if(!duplicado)
                     {
                         if((codigos[contRegistros] < COD_MIN) || (codigos[contRegistros] > COD_MAX))
@@ -272,12 +272,36 @@ public class Proyecto_JBCN {
                         if(tipoCorrecto)
                         {
                             idSesiones[contRegistros] = entrada.nextInt();
-                            if((idSesiones[contRegistros] < ID_MIN) || (idSesiones[contRegistros] > ID_MAX))
+                            //Evaluamos si el código está duplicado
+                            if(contRegistros > 0)
                             {
+                                //Recorremos el array desde el principio hasta el último valor entrado
+                                for(int i = 0; i < contRegistros; i++)
+                                {
+                                    //Si encontramos coincidencia evaluamos 'duplicado' a true
+                                    if(idSesiones[i] == idSesiones[contRegistros])
+                                    {
+                                        duplicado =  true;
+                                    }
+                                }
+                            }
+                            
+                            //Si el valor no está duplicado...
+                            if(!duplicado)
+                            {
+                                if((idSesiones[contRegistros] < ID_MIN) || (idSesiones[contRegistros] > ID_MAX))
+                                {
+                                    tipoCorrecto = false;
+                                    System.out.println(FUERA_RANGO + ID_MIN + 
+                                                       " y " + ID_MAX + "\n");
+                                    entrada.nextLine(); // liberamos buffer
+                                    intentos++; //incrementamos intentos por cada error
+                                }
+                            }else
+                            {
+                                System.out.println("Error, registro duplicado.\n");
                                 tipoCorrecto = false;
-                                System.out.println(FUERA_RANGO + ID_MIN + 
-                                                   " y " + ID_MAX + "\n");
-                                entrada.nextLine(); // liberamos buffer
+                                duplicado = false;
                                 intentos++; //incrementamos intentos por cada error
                             }
                         }else
