@@ -1,13 +1,13 @@
 //////////////////////////////////////////////////////////////////////
 // Autor: Pedro A. Ruiz                                             //    
-// Versión: 2.0                                                     //        
+// Versión: 3.0                                                     //        
 // Modificaciones (ENUNCIADO):                                      //
-//     - Intentos por ERROR preguntas -> 3                          //
-//     - Entrada de registros ilimitado.                            //
+//     - Opciones seleccionadas almacenadas en arrays.              //
+//     - Ordenado opciones seleccionadas por experiencia.           //
 //                                                                  //
-// Modificaciones própias (muestra de datos):                       //            
-//     - Cambio muestra la opción "No responde" -> "-".             //    
-//     - Cambio muestra la opción "idSesión<10" ->   2 digitos.     //
+// Modificaciones própias (control duplicaciones):                  //            
+//     - Impide que se dupliquen códigos de registro.               //    
+//     - Impide que se dupliquen ID Sesión.                         //
 //////////////////////////////////////////////////////////////////////
 
 package proyecto;
@@ -57,6 +57,7 @@ public class Proyecto_JBCN {
     public static final int SEGUIR_MIN = 0;
     public static final int SEGUIR_MAX = 1;
     public static final int MAX_REGISTROS = 10;
+    public static final int MAX_IMPRIMIR = 2;
     
     //Mensaje de error
     public static final String FUERA_RANGO = "El dato debe estar comprendido entre: ";
@@ -66,37 +67,46 @@ public class Proyecto_JBCN {
     public static final String CABECERA = "Código\t\tGénero\t\tTipo\t\tSesión\t\tExperiencia";
 
     //FIN DECLARACIÓN CONSTANTES //
+    
 
     public static void main(String[] args){
         
         //Declaración de variables //
-        int codigo=0, genero=0, tipoParticipante=0, añosExperiencia=0, 
-            daSesion=0, idSesion=0, intentos = 0, seguir=0, 
-            registrosEntrados = 0, contRegistros = 0, auxExperiencia = 0;
         
-        String generoTipo="", opcionParticipante="", sesion="";
+        //int
+        int seguir, imprimir, i, j, contImprimir, contRegistros, intentos, aux;
+        seguir = imprimir = i = j = contImprimir = contRegistros = intentos = aux = 0;
         
-        boolean tipoCorrecto = true, introducirMas, duplicado = false;
+        //String
+        String generoTipo, opcionParticipante, sesion;
+        generoTipo = opcionParticipante = sesion = "";
+        
+        //boolean
+        boolean tipoCorrecto = true, introducirMas, duplicado = false;     
+        
         //Fin declaración variables //
         
-        //Declaración de arrays
+        // Declaración de arrays //
         int [] codigos = new int[MAX_REGISTROS];
         int [] generos = new int[MAX_REGISTROS];
         int [] participantes = new int[MAX_REGISTROS];
         int [] daSesiones = new int[MAX_REGISTROS];
         int [] idSesiones = new int[MAX_REGISTROS];
         int [] anosExperiencia = new int[MAX_REGISTROS];
+        // Fin declaración Arrays //
         
         //Lector Entrada de datos
         Scanner entrada = new Scanner(System.in);
         
-        // Se repetirá mientras "introducirMas" sea true
-        do
+        
+        // INICIAMOS LA EJECUCIÓN //        
+        
+        do //Se repetirá mientras "introducirMas" sea true y no superemos el maximo de registros
         {
             introducirMas = false; //Por defecto no queremos introducir más registros
             
-            //Repite mientras tipoCorrecto = false e intentos < MAX_INTENTOS
-            do
+            // BLOQUE DE PREGUNTAS //  
+            do //Repite mientras tipoCorrecto = false e intentos < MAX_INTENTOS
             {
                 //Ejecución del programa (Entrada Código incripción)
                 System.out.print("Entrada de datos\n" +
@@ -107,11 +117,12 @@ public class Proyecto_JBCN {
                 if(tipoCorrecto)
                 {           
                     codigos[contRegistros] = entrada.nextInt();
-                    //Evaluamos si el código está duplicado
-                    if(contRegistros > 0)
+                    
+                    // CONTTROL REGISTROS DUPLICADOS                    
+                    if(contRegistros > 0) //Evaluamos a partir del segundo registro.
                     {
                         //Recorremos el array desde el principio hasta el último valor entrado
-                        for(int i = 0; i < contRegistros; i++)
+                        for(i = 0; i < contRegistros; i++)
                         {
                             //Si encontramos coincidencia evaluamos 'duplicado' a true
                             if(codigos[i] == codigos[contRegistros])
@@ -120,6 +131,8 @@ public class Proyecto_JBCN {
                             }
                         }
                     }
+                    // FIN CONTROL DUPLICADOS
+                    
                     //Si el valor no esta duplicado, evaluamos rango
                     if(!duplicado)
                     {
@@ -131,20 +144,19 @@ public class Proyecto_JBCN {
                             entrada.nextLine(); // liberamos buffer
                             intentos++; //incrementamos intentos por cada error
                         }
-                    }else
+                    }else //Si está duplicado mostramos mensaje y reseteamos boolean
                     {
                         System.out.println("Error, registro duplicado.\n");
                         tipoCorrecto = false;
                         duplicado = false;
                         intentos++; //incrementamos intentos por cada error
                     }
-                }else
+                }else //si el valor no es entero
                 {
                     System.out.println(NO_ENTERO); //Mensaje error
                     entrada.next(); //liberamos buffer
                     intentos++; //incrementamos intentos por cada error
-                }
-                
+                }                
                 
             }while((!tipoCorrecto) && (intentos < MAX_INTENTOS));
             
@@ -162,8 +174,9 @@ public class Proyecto_JBCN {
                                      "2 - Es Hombre\n" + 
                                      "3 - No responde\n" + 
                                      "Elige una opción entre (1-2-3):");
-                    //Evaluamos entero y rango 
+                     
                     tipoCorrecto = entrada.hasNextInt();
+                    //Evaluamos entero y rango
                     if(tipoCorrecto)
                     {
                         generos[contRegistros] = entrada.nextInt();
@@ -184,7 +197,8 @@ public class Proyecto_JBCN {
                     
                 }while((!tipoCorrecto) && (intentos < MAX_INTENTOS));
             }
-            //Si cumple rango asignamos a la variable "generoTipo" la opción seleccionada
+            
+            //Si cumple el rango mostramos el Menu Participante
             if(tipoCorrecto)
             {
                 intentos = 0; //Reseteamos el valor de "intentos"
@@ -220,8 +234,9 @@ public class Proyecto_JBCN {
                     }
                     
                 }while((!tipoCorrecto) && (intentos < MAX_INTENTOS));
-            }        
-            //Si cumple el rango asignamos a opcionParticipante la opción seleccionada
+            }   
+            
+            //Si cumple el rango mostramos el Menu Sesión
             if(tipoCorrecto)
             { 
                 intentos = 0; //Reseteamos el valor de "intentos"                
@@ -234,8 +249,9 @@ public class Proyecto_JBCN {
                                      "0 - No\n" +
                                      "1 - Si\n" +
                                      "Elige una opción entre (0-1):");
-                    //Evaluamos entero y rango
+                    
                     tipoCorrecto = entrada.hasNextInt();
+                    //Evaluamos entero y rango
                     if(tipoCorrecto)
                     {                    
                         daSesiones[contRegistros] = entrada.nextInt();
@@ -256,7 +272,8 @@ public class Proyecto_JBCN {
                     
                 }while((!tipoCorrecto) && (intentos < MAX_INTENTOS));
             }
-            //Si cumple el rango asignamos a sesion la opción seleccionada
+            
+            //Si cumple el rango y da sesión, Mostramos Menú ID Sesión
             if(tipoCorrecto)
             {
                 intentos = 0; //Reseteamos el valor de "intentos"
@@ -265,18 +282,19 @@ public class Proyecto_JBCN {
                     //Repite mientras tipoCorrecto = false e intentos < MAX_INTENTOS
                     do
                     {
-                        //Si elige dar sesión preguntamos ID
+                        //Menu 4 - ID Sesión
                         System.out.print("\nID Sesión (" + ID_MIN + "-" + ID_MAX + "):");
                         //Evaluamos entero y rango
                         tipoCorrecto = entrada.hasNextInt();
                         if(tipoCorrecto)
                         {
                             idSesiones[contRegistros] = entrada.nextInt();
-                            //Evaluamos si el código está duplicado a partir del segundo registro 
-                            if(contRegistros > 0)
+                            
+                            //CONTROL DUPLICADOS
+                            if(contRegistros > 0) //Evaluamos a partir del segundo registro
                             {
                                 //Recorremos el array desde el principio hasta el último valor entrado
-                                for(int i = 0; i < contRegistros; i++)
+                                for(i = 0; i < contRegistros; i++)
                                 {
                                     //Si encontramos coincidencia evaluamos 'duplicado' a true
                                     if(idSesiones[i] == idSesiones[contRegistros])
@@ -285,6 +303,7 @@ public class Proyecto_JBCN {
                                     }
                                 }
                             }
+                            //FIN CONTROL DUPLICADOS
                             
                             //Si el valor no está duplicado evaluamos rango.
                             if(!duplicado)
@@ -316,13 +335,15 @@ public class Proyecto_JBCN {
                 }
 
             }
-            //Si cumple el rango preguntamos por los años de experiencia
+            
+            //Si cumple el rango mostramos menú experiencia
             if(tipoCorrecto)
             {
                 intentos = 0; //Reseteamos el valor de "intentos"
                 //Repite mientras tipoCorrecto = false e intentos < MAX_INTENTOS
                 do
                 {
+                    //Menú 5 - Años Experiencia
                     System.out.print("\nAños de experiencia (0-30):");
                     tipoCorrecto = entrada.hasNextInt();
                     //Evaluamos entero y rango
@@ -342,38 +363,36 @@ public class Proyecto_JBCN {
                         System.out.println(NO_ENTERO); //Mensaje error
                         entrada.next(); //liberamos buffer
                         intentos++; //incrementamos el valor de intentos por cada error
-                    }
+                    }                    
+                    // FIN BLOQUE PREGUNTAS //
                     
                     //Se incrementará 'contRegistros' si TODAS las opciones seleccionas han sido correctas.
                     if(tipoCorrecto)
                     {
                         contRegistros++;
-                    }
-                
+                    }                
                     
                 }while((!tipoCorrecto) && (intentos < MAX_INTENTOS));
+                
             }
             
-            //Si se han superado los intentos (3) por pregunta, mostramos el mensaje
+            //Si se han superado los intentos (3) por pregunta, mostramos mensaje error
             if(intentos >= MAX_INTENTOS)
             {
                 System.out.println("\nDato Incorrecto. Has superado " + intentos + " intentos");
             }
             
-            //Preguntamos si quiere introducir más siempre que no hallmos llegado a 'MAX_REGISTROS'
+            //Preguntamos introducir más registros si 'contRegistros < MAXREGISTROS'.
             if(contRegistros < MAX_REGISTROS)
-            {
-                //¿Queremos introducir mas registros?.
-                //Repite mientras tipoCorrecto = false (en este punto, no evaluamos intentos).
-                do
+            {                 
+                do //Repite mientras tipoCorrecto = false (en este punto, no evaluamos intentos).
                 {
                     System.out.print("\nIntroducir más registros SI(1) - NO(0):");
                     tipoCorrecto = entrada.hasNextInt();
-                    //Evaluamos si es entero
+                    //Evaluamos ENTERO y RANGO
                     if(tipoCorrecto)
                     {
-                        seguir = entrada.nextInt();
-                        //Evaluamos si está en rango
+                        seguir = entrada.nextInt();                        
                         if((seguir < SEGUIR_MIN) || seguir > SEGUIR_MAX)
                         {
                             tipoCorrecto = false;
@@ -386,11 +405,12 @@ public class Proyecto_JBCN {
                         System.out.println(NO_ENTERO); //Mensaje error
                         entrada.next(); //liberamos buffer                 
                     }       
-                    //Si el valor de "seguir" es = 1 iniciamos nuevo el registro
-                    if(seguir == 1)
+                    
+                    //Evaluamos la respuesta del usuario sobre un nuevo registro
+                    if(seguir == 1) //Si "seguir" es = 1 iniciamos nuevo registro
                     {
                         introducirMas = true;                        
-                        intentos = 0; //Reseteamos el valor de "intentos para el siguiente registro"
+                        intentos = 0; //Reseteamos "intentos" para el siguiente registro"
                         System.out.println(); //salto de línea
                     }
 
@@ -398,11 +418,10 @@ public class Proyecto_JBCN {
                 
             }                
            
-        }while((introducirMas) && (contRegistros < MAX_REGISTROS));
-                
-        int contImprimir = 0;
-        int imprimir = 0;
+        }while((introducirMas) && (contRegistros < MAX_REGISTROS));                
         
+        
+        // BLOQUE DE IMPRESIÓN //
         
         //Evaluamos cuantos registros se han completado y mostramos un mensaje al finalizar el programa.
         if(contRegistros > 0) //Si al menos hemos completado un registro...
@@ -428,10 +447,10 @@ public class Proyecto_JBCN {
                                        "------------------------------------");
                 }                    
                 
-                //Recorremos las opciones elegidas por el usuario, asignamos el valor en consecuencia e imprimismos.
-                for(int i = 0; i < contRegistros; i++)
+                //Recorremos opciones elegidas usuario y asignamos valor.
+                for(i = 0; i < contRegistros; i++)
                 {
-                    //Asignamos el valor del array 'generos' a var 'generoTipo' con la opción seleccionada por el usuario
+                    //Asignamos valor array 'generos' a 'generoTipo'.
                     switch(generos[i])
                     {
                         case MUJER:
@@ -447,7 +466,7 @@ public class Proyecto_JBCN {
                             break;
                     } 
    
-                    //Asignamos el valor del array 'participantes' a var 'opcionParticipante' con la opción seleccionada por el usuario
+                    //Asignamos valor array 'participantes' a 'opcionParticipante'.
                     switch(participantes[i])
                     {
                         case GENERAL:
@@ -466,7 +485,7 @@ public class Proyecto_JBCN {
                             opcionParticipante = OP_PRENSA;
                     }
 
-                    //Asignamos el valor del array 'participantes' a var 'sesion' con la opción seleccionada por el usuario
+                    //Asignamos valor array 'daSesiones' a 'sesion'.
                      switch(daSesiones[i])
                     {
                         case SESION_MIN:
@@ -504,7 +523,7 @@ public class Proyecto_JBCN {
                 
                 System.out.println(); //salto de línea
                 
-                //Mostramos mensaje ordenamiento en la primera vuelta del bucle y si se ha introducido + de un registro.
+                //Mostramos mensaje ordenamiento una vez y si hay + de un registro
                 if((contImprimir < 1) && (contRegistros > 1))
                 {
                     do
@@ -512,19 +531,18 @@ public class Proyecto_JBCN {
                         //Preguntamos si quiere que se muestre los valores ordenador por experiencia <>
                         System.out.print("¿Quieres mostrar los datos ordenados por experiencia de <>? Si(1)-No(0): ");
                         tipoCorrecto = entrada.hasNextInt();
-                        //Evaluamos si es entero.
+                        //Evaluamos Entero y Rango.
                         if(!tipoCorrecto)
                         {
                             System.out.println("Error, el dato debe ser un entero.\n");
                             entrada.next();
                         }else
                         {
-                            imprimir = entrada.nextInt();
-                            //Evaluamos si está en rango.
+                            imprimir = entrada.nextInt();                            
                             if((imprimir < 0) || (imprimir > 1))
                             {
                                 System.out.println("Error, el valor de estran entre 0-1.\n");
-                                entrada.nextLine();
+                                entrada.nextLine(); //Liberamos buffer
                                 tipoCorrecto = false;
                             }
                         }
@@ -534,58 +552,65 @@ public class Proyecto_JBCN {
                 }   
 
                 //Evaluamos la respuesta del usuario en el ordenamiento de los registros
-                if(imprimir == 0) // si no quiere ordenarlos, mostramos registros SIN ORDENAR y salimos del bucle
+                if(imprimir == 0) // si no quiere ordenarlos, mostramos SIN ORDENAR y salimos bucle
                 {
-                   tipoCorrecto = false; //variable de salida directa.
+                   tipoCorrecto = false; 
                 }
-                else if(imprimir == 1) //Si el usuario dice que si, mostramos los registros ordenados por experiencia.
+                else if(imprimir == 1) //Si quiere ordenarlos, mostramos registros ordenados por experiencia.
                 {
-                    contImprimir++; //Incrementamos en 1 el valor de 'contImprimir' para que ejecute una segunda vuelta.
-                    //Recorremos el array y comparamos 'anosExperiencia[i]' con 'anosExperiencia[j] o (i+1)' .  
-                    for(int i = 0; i < contRegistros; i++)
+                    contImprimir++; //Incrementamos 'contImprimir' para ejecución segunda vuelta.
+                    
+                    
+                    // ORDENAMOS POR EXPERIENCIA 
+                    
+                    //Recorremos array y comparamos 'anosExperiencia[i]' con 'anosExperiencia[j]'.  
+                    for(i = 0; i < contRegistros; i++)
                     {
-                        for(int j = i + 1; j < contRegistros; j++)
+                        for(j = i + 1; j < contRegistros; j++)
                         {
-                            //Evaluamos si 'anosExperiencia[i]' es > que 'anosExperiencia[j], si es así, realizamos el cambio.
+                            //Evaluamos si 'anosExperiencia[i]' es > 'anosExperiencia[j].
                             if(anosExperiencia[i] > anosExperiencia[j])
                             {
-                                //Ordenamiento Experiencia
-                                int aux;
-                                aux = anosExperiencia[i];
-                                anosExperiencia[i] = anosExperiencia[j];
-                                anosExperiencia[j] = aux;
-                                
-                                //Ordenamiento Género
-                                aux = generos[i];
-                                generos[i] = generos[j];
-                                generos[j] = aux;
-                                
-                                //Ordenamiento Código
+                                //Ordenamos Código
                                 aux = codigos[i];
                                 codigos[i] = codigos[j];
                                 codigos[j] = aux;
                                 
-                                //Ordenamiento Tipo
+                                //Ordenamos Género
+                                aux = generos[i];
+                                generos[i] = generos[j];
+                                generos[j] = aux;
+                                
+                                //Ordenamos Tipo
                                 aux = participantes[i];
                                 participantes[i] = participantes[j];
                                 participantes[j] = aux;
                                 
-                                //Ordenamiento da Sesión
+                                //Ordenamos da Sesión
                                 aux = daSesiones[i];
                                 daSesiones[i] = daSesiones[j];
                                 daSesiones[j] = aux;
                                 
-                                //Ordenamiento ID Sesión
+                                //Ordenamos ID Sesión
                                 aux = idSesiones[i];
                                 idSesiones[i] = idSesiones[j];
                                 idSesiones[j] = aux;
+                                                                
+                                //Ordenamos Experiencia                                
+                                aux = anosExperiencia[i];
+                                anosExperiencia[i] = anosExperiencia[j];
+                                anosExperiencia[j] = aux;                            
                             }
                         }
                     }
-                }
+                } 
                 
+                // FIN ORDENAMIENTO 
                 
-            }while((contImprimir < 2) && (tipoCorrecto)); 
+            }while((contImprimir < MAX_IMPRIMIR) && (tipoCorrecto)); 
+            
+            // FIN BLOQUE DE IMPRESIÓN //
+            
                       
             //Mostramos los registros entrados
             System.out.println("\nSe han incrito: " + contRegistros + " participante/s nuev@/s");
@@ -594,6 +619,8 @@ public class Proyecto_JBCN {
         {
            System.out.println("\nNo se ha registrado ningún participante."); 
         } 
+        
+        // FIN DE LA EJECUCIÓN //
         
     }
 
