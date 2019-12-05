@@ -188,7 +188,8 @@ public class Proyecto_JBCN {
                     if(tipoCorrecto)
                     {
                         generos[contRegistros] = entrada.nextInt();
-                        if((generos[contRegistros] < GENERO_MIN) || (generos[contRegistros] > GENERO_MAX))
+                        if((generos[contRegistros] < GENERO_MIN) || 
+                           (generos[contRegistros] > GENERO_MAX))
                         {
                             tipoCorrecto = false;
                             System.out.println(FUERA_RANGO + GENERO_MIN + 
@@ -226,7 +227,8 @@ public class Proyecto_JBCN {
                     if(tipoCorrecto)
                     {
                         participantes[contRegistros] = entrada.nextInt();
-                        if((participantes[contRegistros] < TIPO_MIN) || (participantes[contRegistros] > TIPO_MAX))
+                        if((participantes[contRegistros] < TIPO_MIN) || 
+                           (participantes[contRegistros] > TIPO_MAX))
                         {
                             tipoCorrecto = false;
                             System.out.println(FUERA_RANGO + TIPO_MIN + 
@@ -263,7 +265,8 @@ public class Proyecto_JBCN {
                     if(tipoCorrecto)
                     {                    
                         daSesiones[contRegistros] = entrada.nextInt();
-                        if((daSesiones[contRegistros] < SESION_MIN) || (daSesiones[contRegistros] > SESION_MAX))
+                        if((daSesiones[contRegistros] < SESION_MIN) || 
+                           (daSesiones[contRegistros] > SESION_MAX))
                         {
                             tipoCorrecto = false;
                             System.out.println(FUERA_RANGO + SESION_MIN + 
@@ -316,7 +319,8 @@ public class Proyecto_JBCN {
                             //Si el valor no está duplicado evaluamos rango.
                             if(!duplicado)
                             {
-                                if((idSesiones[contRegistros] < ID_MIN) || (idSesiones[contRegistros] > ID_MAX))
+                                if((idSesiones[contRegistros] < ID_MIN) || 
+                                   (idSesiones[contRegistros] > ID_MAX))
                                 {
                                     tipoCorrecto = false;
                                     System.out.println(FUERA_RANGO + ID_MIN + 
@@ -358,7 +362,8 @@ public class Proyecto_JBCN {
                     if(tipoCorrecto)
                     {
                         anosExperiencia[contRegistros] = entrada.nextInt();
-                        if((anosExperiencia[contRegistros] < EXPERIENCIA_MIN) || (anosExperiencia[contRegistros] > EXPERIENCIA_MAX))
+                        if((anosExperiencia[contRegistros] < EXPERIENCIA_MIN) || 
+                           (anosExperiencia[contRegistros] > EXPERIENCIA_MAX))
                         {
                             tipoCorrecto = false;
                             System.out.println(FUERA_RANGO + EXPERIENCIA_MIN + 
@@ -374,7 +379,7 @@ public class Proyecto_JBCN {
                     }                    
                     // FIN BLOQUE PREGUNTAS //
                     
-                    //Se incrementará 'contRegistros' si TODAS las opciones seleccionas han sido correctas.
+                    //Se incrementará 'contRegistros' si TODAS  opciones han sido correctas.
                     if(tipoCorrecto)
                     {
                         contRegistros++;
@@ -537,7 +542,8 @@ public class Proyecto_JBCN {
                     do
                     {
                         //Preguntamos si quiere que se muestre los valores ordenador por experiencia <>
-                        System.out.print("¿Quieres mostrar los datos ordenados por experiencia de <>? Si(1)-No(0): ");
+                        System.out.print("¿Quieres mostrar los datos ordenados " +
+                                         "por experiencia de <>? Si(1)-No(0): ");
                         tipoCorrecto = entrada.hasNextInt();
                         //Evaluamos Entero y Rango.
                         if(!tipoCorrecto)
@@ -622,7 +628,8 @@ public class Proyecto_JBCN {
             
                       
             //Mostramos los registros entrados
-            System.out.println("\nSe han incrito: " + contRegistros + " participante/s nuev@/s");
+            System.out.println("\nSe han incrito: " + contRegistros + 
+                               " participante/s nuev@/s");
             
         }else //Si no se finaliza ningún registro, mostramos el mensaje
         {
