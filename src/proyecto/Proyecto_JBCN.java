@@ -64,10 +64,12 @@ public class Proyecto_JBCN {
     public static final int OP_IMPRIMIR_MIN = 0;
     public static final int OP_IMPRIMIR_MAX = 1;
     public static final int DOS_DIGITOS = 10;
+    public static final int PRIMER_REGISTRO = 0;
     
     //Mensaje de error
     public static final String FUERA_RANGO = "El dato debe estar comprendido entre: ";
     public static final String NO_ENTERO = "El dato no es un entero.\n";
+    public static final String REG_DUPLICADO = "Error, registro duplicado.\n";
     
     //Cabecera
     public static final String CABECERA = "Código\t\tGénero\t\tTipo\t\tSesión\t\tExperiencia";
@@ -125,7 +127,7 @@ public class Proyecto_JBCN {
                     codigos[contRegistros] = entrada.nextInt();
                     
                     // CONTTROL REGISTROS DUPLICADOS                    
-                    if(contRegistros > 0) //Evaluamos a partir del segundo registro.
+                    if(contRegistros > PRIMER_REGISTRO) //Evaluamos a partir del segundo registro.
                     {
                         //Recorremos el array desde el principio hasta el último valor entrado
                         for(i = 0; i < contRegistros; i++)
@@ -152,7 +154,7 @@ public class Proyecto_JBCN {
                         }
                     }else //Si está duplicado mostramos mensaje y reseteamos boolean
                     {
-                        System.out.println("Error, registro duplicado.\n");
+                        System.out.println(REG_DUPLICADO);
                         tipoCorrecto = false;
                         duplicado = false;
                         intentos++; //incrementamos intentos por cada error
@@ -297,7 +299,7 @@ public class Proyecto_JBCN {
                             idSesiones[contRegistros] = entrada.nextInt();
                             
                             //CONTROL DUPLICADOS
-                            if(contRegistros > 0) //Evaluamos a partir del segundo registro
+                            if(contRegistros > PRIMER_REGISTRO) //Evaluamos a partir del segundo registro
                             {
                                 //Recorremos el array desde el principio hasta el último valor entrado
                                 for(i = 0; i < contRegistros; i++)
@@ -324,7 +326,7 @@ public class Proyecto_JBCN {
                                 }
                             }else //Si está duplicado, mostramos mensaje de error
                             {
-                                System.out.println("Error, registro duplicado.\n");
+                                System.out.println(REG_DUPLICADO);
                                 tipoCorrecto = false;
                                 duplicado = false;
                                 intentos++; //incrementamos intentos por cada error
