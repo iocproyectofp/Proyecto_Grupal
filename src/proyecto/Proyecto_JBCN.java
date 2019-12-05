@@ -57,7 +57,13 @@ public class Proyecto_JBCN {
     public static final int SEGUIR_MIN = 0;
     public static final int SEGUIR_MAX = 1;
     public static final int MAX_REGISTROS = 10;
+    public static final int MIN_REGISTROS = 1;
     public static final int MAX_IMPRIMIR = 2;
+    public static final int MIN_IMPRIMIR = 1;
+    public static final int REGISTRO_NULO = 0;
+    public static final int OP_IMPRIMIR_MIN = 0;
+    public static final int OP_IMPRIMIR_MAX = 1;
+    public static final int DOS_DIGITOS = 10;
     
     //Mensaje de error
     public static final String FUERA_RANGO = "El dato debe estar comprendido entre: ";
@@ -152,7 +158,7 @@ public class Proyecto_JBCN {
                         intentos++; //incrementamos intentos por cada error
                     }
                 }else //si el valor no es entero
-                {
+                {                      
                     System.out.println(NO_ENTERO); //Mensaje error
                     entrada.next(); //liberamos buffer
                     intentos++; //incrementamos intentos por cada error
@@ -407,7 +413,7 @@ public class Proyecto_JBCN {
                     }       
                     
                     //Evaluamos la respuesta del usuario sobre un nuevo registro
-                    if(seguir == 1) //Si "seguir" es = 1 iniciamos nuevo registro
+                    if(seguir == SEGUIR_MAX) //Si "seguir" es = 1 iniciamos nuevo registro
                     {
                         introducirMas = true;                        
                         intentos = 0; //Reseteamos "intentos" para el siguiente registro"
@@ -424,12 +430,12 @@ public class Proyecto_JBCN {
         // BLOQUE DE IMPRESIÓN //
         
         //Evaluamos cuantos registros se han completado y mostramos un mensaje al finalizar el programa.
-        if(contRegistros > 0) //Si al menos hemos completado un registro...
+        if(contRegistros > REGISTRO_NULO) //Si al menos hemos completado un registro...
         {   
             do
             {
                 //Según el número de vuelta mostramos una cabecera distinta.
-                if(contImprimir < 1) //Vuelta 1 - Sin ordenar
+                if(contImprimir < MIN_IMPRIMIR) //Vuelta 1 - Sin ordenar
                 {
                     System.out.println("\n\t\t\tREGISTROS ENTRADOS");
                     System.out.println("---------------------------------------"+
@@ -501,7 +507,7 @@ public class Proyecto_JBCN {
                     if(sesion == SI_SESION)//Si da sesión, mostramos los datos CON ID sesión
                     {              
                         // Si idSesión es < 10 añadimos un "0" delante para que muestre 2 dígitos
-                        if(idSesiones[i]<10)
+                        if(idSesiones[i] < DOS_DIGITOS)
                         {
                             System.out.println(codigos[i] + "\t\t" + generoTipo + 
                                                opcionParticipante + sesion + "0" + idSesiones[i] + 
@@ -523,8 +529,8 @@ public class Proyecto_JBCN {
                 
                 System.out.println(); //salto de línea
                 
-                //Mostramos mensaje ordenamiento una vez y si hay + de un registro
-                if((contImprimir < 1) && (contRegistros > 1))
+                //Mostramos mensaje una vez y si hay + de un registro
+                if((contImprimir < MIN_IMPRIMIR) && (contRegistros > MIN_REGISTROS))
                 {
                     do
                     {
@@ -539,9 +545,10 @@ public class Proyecto_JBCN {
                         }else
                         {
                             imprimir = entrada.nextInt();                            
-                            if((imprimir < 0) || (imprimir > 1))
+                            if((imprimir < OP_IMPRIMIR_MIN) || (imprimir > OP_IMPRIMIR_MAX))
                             {
-                                System.out.println("Error, el valor de estran entre 0-1.\n");
+                                System.out.println("Error, el valor de estran entre " + 
+                                                   OP_IMPRIMIR_MIN + "-" + OP_IMPRIMIR_MAX + "\n");
                                 entrada.nextLine(); //Liberamos buffer
                                 tipoCorrecto = false;
                             }
@@ -552,11 +559,11 @@ public class Proyecto_JBCN {
                 }   
 
                 //Evaluamos la respuesta del usuario en el ordenamiento de los registros
-                if(imprimir == 0) // si no quiere ordenarlos, mostramos SIN ORDENAR y salimos bucle
+                if(imprimir == OP_IMPRIMIR_MIN) // si no quiere ordenarlos, mostramos SIN ORDENAR y salimos bucle
                 {
                    tipoCorrecto = false; 
                 }
-                else if(imprimir == 1) //Si quiere ordenarlos, mostramos registros ordenados por experiencia.
+                else if(imprimir == OP_IMPRIMIR_MAX) //Si quiere ordenarlos, mostramos registros ordenados por experiencia.
                 {
                     contImprimir++; //Incrementamos 'contImprimir' para ejecución segunda vuelta.
                     
