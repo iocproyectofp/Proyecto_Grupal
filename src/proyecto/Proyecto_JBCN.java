@@ -390,7 +390,7 @@ public class Proyecto_JBCN {
                     //Se incrementará 'contRegistros' si TODAS  opciones han sido correctas.
                     if(tipoCorrecto)
                     {
-                        contRegistros++;
+                        contRegistros++;                       
                     }                
                     
                 }while((!tipoCorrecto) && (intentos < MAX_INTENTOS));
@@ -405,8 +405,7 @@ public class Proyecto_JBCN {
             
             //Preguntamos introducir más registros si 'contRegistros < MAXREGISTROS'.
             if(contRegistros < MAX_REGISTROS)
-            {                 
-                entrada.nextLine();
+            {                  
                 do //Repite mientras tipoCorrecto = false (en este punto, no evaluamos intentos).
                 {
                     System.out.print("\nIntroducir más registros SI(1) - NO(0):");
@@ -426,18 +425,18 @@ public class Proyecto_JBCN {
                     {
                         buffer = entrada.nextLine(); //liberamos buffer
                         System.out.println(NO_ENTERO); //Mensaje error                                        
-                    }       
-                    
-                    //Evaluamos la respuesta del usuario sobre un nuevo registro
-                    if(seguir == SEGUIR_MAX) //Si "seguir" es = 1 iniciamos nuevo registro
-                    {
-                        introducirMas = true;                        
-                        intentos = 0; //Reseteamos "intentos" para el siguiente registro"
-                        entrada.nextLine();
-                        System.out.println(); //salto de línea
-                    }
+                    }           
 
                 }while(!tipoCorrecto);
+                
+                //Evaluamos la respuesta del usuario sobre un nuevo registro
+                if(seguir == SEGUIR_MAX) //Si "seguir" es = 1 iniciamos nuevo registro
+                {                        
+                    entrada.nextLine();
+                    introducirMas = true;                        
+                    intentos = 0; //Reseteamos "intentos" para el siguiente registro"                        
+                    System.out.println(); //salto de línea
+                }
                 
             }                
            
