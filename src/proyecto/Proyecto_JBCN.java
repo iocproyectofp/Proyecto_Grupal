@@ -406,6 +406,7 @@ public class Proyecto_JBCN {
             //Preguntamos introducir más registros si 'contRegistros < MAXREGISTROS'.
             if(contRegistros < MAX_REGISTROS)
             {                 
+                entrada.nextLine();
                 do //Repite mientras tipoCorrecto = false (en este punto, no evaluamos intentos).
                 {
                     System.out.print("\nIntroducir más registros SI(1) - NO(0):");
@@ -548,6 +549,7 @@ public class Proyecto_JBCN {
                 //Mostramos mensaje una vez y si hay + de un registro
                 if((contImprimir < MIN_IMPRIMIR) && (contRegistros > MIN_REGISTROS))
                 {
+                    entrada.nextLine();
                     do
                     {
                         //Preguntamos si quiere que se muestre los valores ordenador por experiencia <>
