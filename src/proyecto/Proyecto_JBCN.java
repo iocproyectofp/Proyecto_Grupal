@@ -155,6 +155,7 @@ public class Proyecto_JBCN {
                         }
                     }else //Si está duplicado mostramos mensaje y reseteamos boolean
                     {
+                        buffer = entrada.nextLine(); //liberamos buffer
                         System.out.println(REG_DUPLICADO);
                         tipoCorrecto = false;
                         duplicado = false;
@@ -335,6 +336,7 @@ public class Proyecto_JBCN {
                                 }
                             }else //Si está duplicado, mostramos mensaje de error
                             {
+                                buffer = entrada.nextLine(); //liberamos buffer
                                 System.out.println(REG_DUPLICADO);
                                 tipoCorrecto = false;
                                 duplicado = false;
