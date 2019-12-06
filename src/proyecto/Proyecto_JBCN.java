@@ -5,9 +5,10 @@
 //     - Opciones seleccionadas almacenadas en arrays.              //
 //     - Ordenado opciones seleccionadas por experiencia.           //
 //                                                                  //
-// Modificaciones própias (control duplicaciones):                  //            
+// Modificaciones própias (control duplicaciones y buffer):         //            
 //     - Impide que se dupliquen códigos de registro.               //    
 //     - Impide que se dupliquen ID Sesión.                         //
+//     - Resuelto problema buffer valores NO ENTERO con espacios.   //
 //////////////////////////////////////////////////////////////////////
 
 package proyecto;
