@@ -590,7 +590,7 @@ public class Proyecto_JBCN {
                     // ORDENAMOS POR EXPERIENCIA 
                     
                     //Recorremos array y comparamos 'anosExperiencia[i]' con 'anosExperiencia[j]'.  
-                    for(i = 0; i < contRegistros; i++)
+                    for(i = 0; i < contRegistros - 1; i++)
                     {
                         for(j = i + 1; j < contRegistros; j++)
                         {
