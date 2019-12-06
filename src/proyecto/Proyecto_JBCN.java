@@ -86,8 +86,8 @@ public class Proyecto_JBCN {
         seguir = imprimir = i = j = contImprimir = contRegistros = intentos = aux = 0;
         
         //String
-        String generoTipo, opcionParticipante, sesion;
-        generoTipo = opcionParticipante = sesion = "";
+        String generoTipo, opcionParticipante, sesion, buffer;
+        generoTipo = opcionParticipante = sesion = buffer = "";
         
         //boolean
         boolean tipoCorrecto = true, introducirMas, duplicado = false;     
@@ -161,8 +161,8 @@ public class Proyecto_JBCN {
                     }
                 }else //si el valor no es entero
                 {                      
-                    System.out.println(NO_ENTERO); //Mensaje error
-                    entrada.next(); //liberamos buffer
+                    buffer = entrada.nextLine(); //liberamos buffer
+                    System.out.println(NO_ENTERO); //Mensaje error                   
                     intentos++; //incrementamos intentos por cada error
                 }                
                 
@@ -171,6 +171,7 @@ public class Proyecto_JBCN {
             //Si cumple el rango mostramos el Menu Género
             if(tipoCorrecto)
             {                   
+                entrada.nextLine(); //liberamos buffer
                 intentos = 0; //Reseteamos el valor de "intentos"
                 //Repite mientras tipoCorrecto = false e intentos < MAX_INTENTOS
                 do
@@ -199,8 +200,8 @@ public class Proyecto_JBCN {
                         }
                     }else
                     {
-                        System.out.println(NO_ENTERO); //Mensaje error
-                        entrada.next(); //liberamos buffer
+                        buffer = entrada.nextLine(); //liberamos buffer
+                        System.out.println(NO_ENTERO); //Mensaje error                        
                         intentos++; //incrementamos intentos por cada error
                     }
                     
@@ -210,6 +211,7 @@ public class Proyecto_JBCN {
             //Si cumple el rango mostramos el Menu Participante
             if(tipoCorrecto)
             {
+                entrada.nextLine(); //liberamos buffer
                 intentos = 0; //Reseteamos el valor de "intentos"
                 //Repite mientras tipoCorrecto = false e intentos < MAX_INTENTOS
                 do
@@ -238,8 +240,8 @@ public class Proyecto_JBCN {
                         }
                     }else
                     {
-                        System.out.println(NO_ENTERO); //Mensaje error
-                        entrada.next(); //liberamos buffer
+                        buffer = entrada.nextLine(); //liberamos buffer
+                        System.out.println(NO_ENTERO); //Mensaje error                        
                         intentos++; //incrementamos intentos por cada error
                     }
                     
@@ -249,6 +251,7 @@ public class Proyecto_JBCN {
             //Si cumple el rango mostramos el Menu Sesión
             if(tipoCorrecto)
             { 
+                entrada.nextLine(); //liberamos buffer
                 intentos = 0; //Reseteamos el valor de "intentos"                
                 //Repite mientras tipoCorrecto = false e intentos < MAX_INTENTOS
                 do
@@ -276,8 +279,8 @@ public class Proyecto_JBCN {
                         }
                     }else
                     {
-                        System.out.println(NO_ENTERO); //Mensaje error
-                        entrada.next(); //liberamos buffer
+                        buffer = entrada.nextLine(); //liberamos buffer
+                        System.out.println(NO_ENTERO); //Mensaje error                        
                         intentos++; //incrementamos intentos por cada error
                     }
                     
@@ -286,10 +289,11 @@ public class Proyecto_JBCN {
             
             //Si cumple el rango y da sesión, Mostramos Menú ID Sesión
             if(tipoCorrecto)
-            {
+            {                
                 intentos = 0; //Reseteamos el valor de "intentos"
                 if(daSesiones[contRegistros] == SESION_MAX) 
                 {
+                    entrada.nextLine(); //liberamos buffer
                     //Repite mientras tipoCorrecto = false e intentos < MAX_INTENTOS
                     do
                     {
@@ -337,8 +341,8 @@ public class Proyecto_JBCN {
                             }
                         }else //Mensaje error, NO ENTERO.
                         {
-                            System.out.println(NO_ENTERO); //Mensaje error
-                            entrada.next(); // liberamos buffer
+                            buffer = entrada.nextLine(); //liberamos buffer
+                            System.out.println(NO_ENTERO); //Mensaje error                            
                             intentos++; //incrementamos intentos por cada error
                         }
 
@@ -351,6 +355,7 @@ public class Proyecto_JBCN {
             //Si cumple el rango mostramos menú experiencia
             if(tipoCorrecto)
             {
+                entrada.nextLine(); //liberamos buffer
                 intentos = 0; //Reseteamos el valor de "intentos"
                 //Repite mientras tipoCorrecto = false e intentos < MAX_INTENTOS
                 do
@@ -373,8 +378,8 @@ public class Proyecto_JBCN {
                         }
                     }else
                     {
-                        System.out.println(NO_ENTERO); //Mensaje error
-                        entrada.next(); //liberamos buffer
+                        buffer = entrada.nextLine(); //liberamos buffer
+                        System.out.println(NO_ENTERO); //Mensaje error                        
                         intentos++; //incrementamos el valor de intentos por cada error
                     }                    
                     // FIN BLOQUE PREGUNTAS //
@@ -415,8 +420,8 @@ public class Proyecto_JBCN {
                         }          
                     }else
                     {
-                        System.out.println(NO_ENTERO); //Mensaje error
-                        entrada.next(); //liberamos buffer                 
+                        buffer = entrada.nextLine(); //liberamos buffer
+                        System.out.println(NO_ENTERO); //Mensaje error                                        
                     }       
                     
                     //Evaluamos la respuesta del usuario sobre un nuevo registro
@@ -424,6 +429,7 @@ public class Proyecto_JBCN {
                     {
                         introducirMas = true;                        
                         intentos = 0; //Reseteamos "intentos" para el siguiente registro"
+                        entrada.nextLine();
                         System.out.println(); //salto de línea
                     }
 
@@ -548,8 +554,9 @@ public class Proyecto_JBCN {
                         //Evaluamos Entero y Rango.
                         if(!tipoCorrecto)
                         {
+                            buffer = entrada.nextLine(); //liberamos buffer
                             System.out.println("Error, el dato debe ser un entero.\n");
-                            entrada.next();
+                            
                         }else
                         {
                             imprimir = entrada.nextInt();                            
