@@ -87,8 +87,8 @@ public class Proyecto_JBCN {
         seguir = imprimir = i = j = contImprimir = contRegistros = intentos = aux = 0;
         
         //String
-        String generoTipo, opcionParticipante, sesion, buffer;
-        generoTipo = opcionParticipante = sesion = buffer = "";
+        String generoTipo, opcionParticipante, sesion;
+        generoTipo = opcionParticipante = sesion = "";
         
         //boolean
         boolean tipoCorrecto = true, introducirMas, duplicado = false;     
@@ -155,7 +155,7 @@ public class Proyecto_JBCN {
                         }
                     }else //Si está duplicado mostramos mensaje y reseteamos boolean
                     {
-                        buffer = entrada.nextLine(); //liberamos buffer
+                        entrada.nextLine(); //liberamos buffer
                         System.out.println(REG_DUPLICADO);
                         tipoCorrecto = false;
                         duplicado = false;
@@ -163,7 +163,7 @@ public class Proyecto_JBCN {
                     }
                 }else //si el valor no es entero
                 {                      
-                    buffer = entrada.nextLine(); //liberamos buffer
+                    entrada.nextLine(); //liberamos buffer
                     System.out.println(NO_ENTERO); //Mensaje error                   
                     intentos++; //incrementamos intentos por cada error
                 }                
@@ -202,7 +202,7 @@ public class Proyecto_JBCN {
                         }
                     }else
                     {
-                        buffer = entrada.nextLine(); //liberamos buffer
+                        entrada.nextLine(); //liberamos buffer
                         System.out.println(NO_ENTERO); //Mensaje error                        
                         intentos++; //incrementamos intentos por cada error
                     }
@@ -242,7 +242,7 @@ public class Proyecto_JBCN {
                         }
                     }else
                     {
-                        buffer = entrada.nextLine(); //liberamos buffer
+                        entrada.nextLine(); //liberamos buffer
                         System.out.println(NO_ENTERO); //Mensaje error                        
                         intentos++; //incrementamos intentos por cada error
                     }
@@ -281,7 +281,7 @@ public class Proyecto_JBCN {
                         }
                     }else
                     {
-                        buffer = entrada.nextLine(); //liberamos buffer
+                        entrada.nextLine(); //liberamos buffer
                         System.out.println(NO_ENTERO); //Mensaje error                        
                         intentos++; //incrementamos intentos por cada error
                     }
@@ -336,7 +336,7 @@ public class Proyecto_JBCN {
                                 }
                             }else //Si está duplicado, mostramos mensaje de error
                             {
-                                buffer = entrada.nextLine(); //liberamos buffer
+                                entrada.nextLine(); //liberamos buffer
                                 System.out.println(REG_DUPLICADO);
                                 tipoCorrecto = false;
                                 duplicado = false;
@@ -344,7 +344,7 @@ public class Proyecto_JBCN {
                             }
                         }else //Mensaje error, NO ENTERO.
                         {
-                            buffer = entrada.nextLine(); //liberamos buffer
+                            entrada.nextLine(); //liberamos buffer
                             System.out.println(NO_ENTERO); //Mensaje error                            
                             intentos++; //incrementamos intentos por cada error
                         }
@@ -381,7 +381,7 @@ public class Proyecto_JBCN {
                         }
                     }else
                     {
-                        buffer = entrada.nextLine(); //liberamos buffer
+                        entrada.nextLine(); //liberamos buffer
                         System.out.println(NO_ENTERO); //Mensaje error                        
                         intentos++; //incrementamos el valor de intentos por cada error
                     }                    
@@ -423,7 +423,7 @@ public class Proyecto_JBCN {
                         }          
                     }else
                     {
-                        buffer = entrada.nextLine(); //liberamos buffer
+                        entrada.nextLine(); //liberamos buffer
                         System.out.println(NO_ENTERO); //Mensaje error                                        
                     }           
 
@@ -558,7 +558,7 @@ public class Proyecto_JBCN {
                         //Evaluamos Entero y Rango.
                         if(!tipoCorrecto)
                         {
-                            buffer = entrada.nextLine(); //liberamos buffer
+                            entrada.nextLine(); //liberamos buffer
                             System.out.println("Error, el dato debe ser un entero.\n");
                             
                         }else
