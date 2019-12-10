@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////
-// Autor: Pedro A. Ruiz                                             //    
+// Autor: Proyecto Grupal                                           //    
 // Versión: 3.0                                                     //        
 // Modificaciones (ENUNCIADO):                                      //
 //     - Opciones seleccionadas almacenadas en arrays.              //
