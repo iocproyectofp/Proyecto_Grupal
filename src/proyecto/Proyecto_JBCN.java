@@ -6,7 +6,7 @@
 // Versión: 4.0                                                     //        
 // Modificaciones (ENUNCIADO):                                      //
 //     - Opciones seleccionadas almacenadas en array bidimensional. //
-//     - Muestra participantes y ponentes por género.               //
+//     - Muestra cantidada participantes y ponentes por género.     //
 //                                                                  //
 // Modificaciones própias (control duplicaciones y buffer):         //            
 //     - Impide que se dupliquen códigos de registro.               //    
