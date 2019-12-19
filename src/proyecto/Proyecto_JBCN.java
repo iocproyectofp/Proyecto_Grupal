@@ -104,14 +104,7 @@ public class Proyecto_JBCN {
         
         //Fin declaración variables //
         
-        // Declaración de arrays //
-        int [] codigos = new int[MAX_REGISTROS];
-        int [] generos = new int[MAX_REGISTROS];
-        int [] participantes = new int[MAX_REGISTROS];
-        int [] daSesiones = new int[MAX_REGISTROS];
-        int [] idSesiones = new int[MAX_REGISTROS];
-        int [] anosExperiencia = new int[MAX_REGISTROS];
-        
+        // Declaración de arrays //       
         int [][] registros = new int[MAX_REGISTROS][NUM_CAMPOS];
         int [] aux = new int[NUM_CAMPOS];
         // Fin declaración Arrays //
@@ -536,7 +529,7 @@ public class Proyecto_JBCN {
                     if(sesion == SI_SESION)//Si da sesión, mostramos los datos CON ID sesión
                     {              
                         // Si idSesión es < 10 añadimos un "0" delante para que muestre 2 dígitos
-                        if(idSesiones[i] < DOS_DIGITOS)
+                        if(registros[i][ID_SESION] < DOS_DIGITOS)
                         {
                             System.out.println(registros[i][CODIGO] + "\t\t" + generoTipo + 
                                                opcionParticipante + sesion + "0" + registros[i][ID_SESION] + 
