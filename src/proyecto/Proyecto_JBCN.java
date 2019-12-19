@@ -628,7 +628,8 @@ public class Proyecto_JBCN {
         } 
         
         int porGenero = 0;
-        if(contRegistros > 1)
+        //Si se ha introducido mas de un registros preguntamos mostrar registros por género.
+        if(contRegistros > MIN_REGISTROS)
         {            
             entrada.nextLine();
             do{
@@ -665,24 +666,24 @@ public class Proyecto_JBCN {
                 //Mostramos participantes por género
                 for(i = 0; i < registros.length; i++)
                 {
-                    if(registros[i][GENERO] == 1)
+                    if(registros[i][GENERO] == MUJER)
                     {
                         contMujer++;
-                        if(registros[i][SESION] == 1)
+                        if(registros[i][SESION] == SESION_MAX)
                         {
                             contPonenteMujer++;
                         }
-                    }else if(registros[i][GENERO] == 2)
+                    }else if(registros[i][GENERO] == HOMBRE)
                     {
                         contHombre++;
-                        if(registros[i][SESION] == 1)
+                        if(registros[i][SESION] == SESION_MAX)
                         {
                             contPonenteHombre++;
                         }
-                    }else if(registros[i][GENERO] == 3)
+                    }else if(registros[i][GENERO] == NO_RESPONDE)
                     {
                         contNoResponde++;
-                        if(registros[i][SESION] == 1)
+                        if(registros[i][SESION] == SESION_MAX)
                         {
                             contPonenteNoResponde++;
                         }
