@@ -67,6 +67,8 @@ public class Proyecto_JBCN {
     public static final int DOS_DIGITOS = 10;
     public static final int PRIMER_REGISTRO = 0;
     public static final int NUM_CAMPOS = 6;
+    public static final int POR_GENERO_MIN = 0;
+    public static final int POR_GENERO_MAX = 1;
     
     //Posición campos Arrays
     public static final int CODIGO = 0;
@@ -94,6 +96,12 @@ public class Proyecto_JBCN {
         //int
         int seguir, imprimir, i, j, contImprimir, contRegistros, intentos;
         seguir = imprimir = i = j = contImprimir = contRegistros = intentos = 0;
+        
+        //Contadores de género
+        int contMujer, contHombre, contNoResponde, contPonenteHombre,
+            contPonenteMujer, contPonenteNoResponde, porGenero = 0;;
+        contMujer = contHombre = contNoResponde = contPonenteHombre =
+        contPonenteHombre = contPonenteMujer = contPonenteNoResponde = porGenero = 0;        
         
         //String
         String generoTipo, opcionParticipante, sesion;
@@ -625,9 +633,8 @@ public class Proyecto_JBCN {
         }else //Si no se finaliza ningún registro, mostramos el mensaje
         {
            System.out.println("\nNo se ha registrado ningún participante."); 
-        } 
+        }         
         
-        int porGenero = 0;
         //Si se ha introducido mas de un registros preguntamos mostrar registros por género.
         if(contRegistros > MIN_REGISTROS)
         {            
@@ -638,7 +645,7 @@ public class Proyecto_JBCN {
                 if(tipoCorrecto)
                 {
                     porGenero = entrada.nextInt();
-                    if((porGenero >= 0) && (porGenero <=1))
+                    if((porGenero >= POR_GENERO_MIN) && (porGenero <= POR_GENERO_MAX))
                     {
                         tipoCorrecto = true;
                     }else
@@ -655,14 +662,8 @@ public class Proyecto_JBCN {
                 
             }while(!tipoCorrecto);
             
-            if(porGenero == 1)
-            {
-                int contMujer = 0;
-                int contHombre = 0;
-                int contNoResponde = 0;
-                int contPonenteHombre = 0;
-                int contPonenteMujer = 0;
-                int contPonenteNoResponde = 0;
+            if(porGenero == POR_GENERO_MAX)
+            {                
                 //Mostramos participantes por género
                 for(i = 0; i < registros.length; i++)
                 {
@@ -689,16 +690,20 @@ public class Proyecto_JBCN {
                         }
                     }
                 }
-
-                System.out.println("\nParticipantes totales por género:\n" + 
-                                   " -Hombre ("+ contHombre + ")\n" + 
-                                   " -Mujer ("+ contMujer + ")\n" + 
-                                   " -Sin respuesta ("+ contNoResponde + ")\n");
-
-                System.out.println("\nParticipantes ponentes por género:\n" + 
-                                   " -Hombre ("+ contPonenteHombre + ")\n" + 
-                                   " -Mujer ("+ contPonenteMujer + ")\n" + 
-                                   " -Sin respuesta ("+ contPonenteNoResponde + ")\n");
+                //Imprimimos los resultados
+                System.out.printf("\n %32s\n %s\n %-15s %-15s %-15s\n %s\n %-15d %-15d %-15d\n",
+                                  "PARTICIPANTES POR GÉNERO",  
+                                  "-------------------------------------------",
+                                  "Hombre", "Mujer", "No responde", 
+                                  "-------------------------------------------",
+                                  contHombre, contMujer, contNoResponde);
+                
+                System.out.printf("\n %38S\n %s\n %-15s %-15s %-15s\n %s\n %-15d %-15d %-15d\n",
+                                  "Participantes ponentes por género",  
+                                  "-------------------------------------------",
+                                  "Hombre", "Mujer", "No responde", 
+                                  "-------------------------------------------",
+                                  contPonenteHombre, contPonenteMujer, contPonenteNoResponde);
             }
             
         }
