@@ -2,7 +2,7 @@
 // Autor: Proyecto Grupal                                           //    
 // Versión: 3.0                                                     //        
 // Modificaciones (ENUNCIADO):                                      //
-//     - Opciones seleccionadas almacenadas en arrays.              //
+//     - Opciones seleccionadas almacenadas en array bidimensional. //
 //     - Ordenado opciones seleccionadas por experiencia.           //
 //                                                                  //
 // Modificaciones própias (control duplicaciones y buffer):         //            
@@ -66,6 +66,15 @@ public class Proyecto_JBCN {
     public static final int OP_IMPRIMIR_MAX = 1;
     public static final int DOS_DIGITOS = 10;
     public static final int PRIMER_REGISTRO = 0;
+    public static final int NUM_CAMPOS = 6;
+    
+    //Posición campos Arrays
+    public static final int CODIGO = 0;
+    public static final int GENERO = 1;
+    public static final int PARTICIPANTE = 2;
+    public static final int SESION = 3;
+    public static final int ID_SESION = 4;
+    public static final int EXPERIENCIA = 5;
     
     //Mensaje de error
     public static final String FUERA_RANGO = "El dato debe estar comprendido entre: ";
@@ -83,8 +92,8 @@ public class Proyecto_JBCN {
         //Declaración de variables //
         
         //int
-        int seguir, imprimir, i, j, contImprimir, contRegistros, intentos, aux;
-        seguir = imprimir = i = j = contImprimir = contRegistros = intentos = aux = 0;
+        int seguir, imprimir, i, j, contImprimir, contRegistros, intentos;
+        seguir = imprimir = i = j = contImprimir = contRegistros = intentos = 0;
         
         //String
         String generoTipo, opcionParticipante, sesion;
@@ -95,13 +104,9 @@ public class Proyecto_JBCN {
         
         //Fin declaración variables //
         
-        // Declaración de arrays //
-        int [] codigos = new int[MAX_REGISTROS];
-        int [] generos = new int[MAX_REGISTROS];
-        int [] participantes = new int[MAX_REGISTROS];
-        int [] daSesiones = new int[MAX_REGISTROS];
-        int [] idSesiones = new int[MAX_REGISTROS];
-        int [] anosExperiencia = new int[MAX_REGISTROS];
+        // Declaración de arrays //       
+        int [][] registros = new int[MAX_REGISTROS][NUM_CAMPOS];
+        int [] aux = new int[NUM_CAMPOS];
         // Fin declaración Arrays //
         
         //Lector Entrada de datos
@@ -125,7 +130,7 @@ public class Proyecto_JBCN {
                 tipoCorrecto = entrada.hasNextInt();
                 if(tipoCorrecto)
                 {           
-                    codigos[contRegistros] = entrada.nextInt();
+                    registros[contRegistros][CODIGO] = entrada.nextInt();
                     
                     // CONTTROL REGISTROS DUPLICADOS                    
                     if(contRegistros > PRIMER_REGISTRO) //Evaluamos a partir del segundo registro.
@@ -134,7 +139,7 @@ public class Proyecto_JBCN {
                         for(i = 0; i < contRegistros; i++)
                         {
                             //Si encontramos coincidencia evaluamos 'duplicado' a true
-                            if(codigos[i] == codigos[contRegistros])
+                            if(registros[i][CODIGO] == registros[contRegistros][CODIGO])
                             {
                                 duplicado =  true;
                             }
@@ -145,7 +150,7 @@ public class Proyecto_JBCN {
                     //Si el valor no esta duplicado, evaluamos rango
                     if(!duplicado)
                     {
-                        if((codigos[contRegistros] < COD_MIN) || (codigos[contRegistros] > COD_MAX))
+                        if((registros[contRegistros][CODIGO] < COD_MIN) || (registros[contRegistros][CODIGO] > COD_MAX))
                         {
                             //Si no cumple el rango 
                             tipoCorrecto = false;
@@ -190,9 +195,9 @@ public class Proyecto_JBCN {
                     //Evaluamos entero y rango
                     if(tipoCorrecto)
                     {
-                        generos[contRegistros] = entrada.nextInt();
-                        if((generos[contRegistros] < GENERO_MIN) || 
-                           (generos[contRegistros] > GENERO_MAX))
+                        registros[contRegistros][GENERO] = entrada.nextInt();
+                        if((registros[contRegistros][GENERO] < GENERO_MIN) || 
+                           (registros[contRegistros][GENERO] > GENERO_MAX))
                         {
                             tipoCorrecto = false;
                             System.out.println(FUERA_RANGO + GENERO_MIN + 
@@ -230,9 +235,9 @@ public class Proyecto_JBCN {
                     tipoCorrecto = entrada.hasNextInt();
                     if(tipoCorrecto)
                     {
-                        participantes[contRegistros] = entrada.nextInt();
-                        if((participantes[contRegistros] < TIPO_MIN) || 
-                           (participantes[contRegistros] > TIPO_MAX))
+                        registros[contRegistros][PARTICIPANTE] = entrada.nextInt();
+                        if((registros[contRegistros][PARTICIPANTE] < TIPO_MIN) || 
+                           (registros[contRegistros][PARTICIPANTE] > TIPO_MAX))
                         {
                             tipoCorrecto = false;
                             System.out.println(FUERA_RANGO + TIPO_MIN + 
@@ -269,9 +274,9 @@ public class Proyecto_JBCN {
                     //Evaluamos entero y rango
                     if(tipoCorrecto)
                     {                    
-                        daSesiones[contRegistros] = entrada.nextInt();
-                        if((daSesiones[contRegistros] < SESION_MIN) || 
-                           (daSesiones[contRegistros] > SESION_MAX))
+                        registros[contRegistros][SESION] = entrada.nextInt();
+                        if((registros[contRegistros][SESION] < SESION_MIN) || 
+                           (registros[contRegistros][SESION] > SESION_MAX))
                         {
                             tipoCorrecto = false;
                             System.out.println(FUERA_RANGO + SESION_MIN + 
@@ -293,7 +298,7 @@ public class Proyecto_JBCN {
             if(tipoCorrecto)
             {                
                 intentos = 0; //Reseteamos el valor de "intentos"
-                if(daSesiones[contRegistros] == SESION_MAX) 
+                if(registros[contRegistros][SESION] == SESION_MAX) 
                 {
                     entrada.nextLine(); //liberamos buffer
                     //Repite mientras tipoCorrecto = false e intentos < MAX_INTENTOS
@@ -305,7 +310,7 @@ public class Proyecto_JBCN {
                         tipoCorrecto = entrada.hasNextInt();
                         if(tipoCorrecto)
                         {
-                            idSesiones[contRegistros] = entrada.nextInt();
+                            registros[contRegistros][ID_SESION] = entrada.nextInt();
                             
                             //CONTROL DUPLICADOS
                             if(contRegistros > PRIMER_REGISTRO) //Evaluamos a partir del segundo registro
@@ -314,7 +319,7 @@ public class Proyecto_JBCN {
                                 for(i = 0; i < contRegistros; i++)
                                 {
                                     //Si encontramos coincidencia evaluamos 'duplicado' a true
-                                    if(idSesiones[i] == idSesiones[contRegistros])
+                                    if(registros[i][ID_SESION] == registros[contRegistros][ID_SESION])
                                     {
                                         duplicado =  true;
                                     }
@@ -325,8 +330,8 @@ public class Proyecto_JBCN {
                             //Si el valor no está duplicado evaluamos rango.
                             if(!duplicado)
                             {
-                                if((idSesiones[contRegistros] < ID_MIN) || 
-                                   (idSesiones[contRegistros] > ID_MAX))
+                                if((registros[contRegistros][ID_SESION] < ID_MIN) || 
+                                   (registros[contRegistros][ID_SESION] > ID_MAX))
                                 {
                                     tipoCorrecto = false;
                                     System.out.println(FUERA_RANGO + ID_MIN + 
@@ -369,9 +374,9 @@ public class Proyecto_JBCN {
                     //Evaluamos entero y rango
                     if(tipoCorrecto)
                     {
-                        anosExperiencia[contRegistros] = entrada.nextInt();
-                        if((anosExperiencia[contRegistros] < EXPERIENCIA_MIN) || 
-                           (anosExperiencia[contRegistros] > EXPERIENCIA_MAX))
+                        registros[contRegistros][EXPERIENCIA] = entrada.nextInt();
+                        if((registros[contRegistros][EXPERIENCIA] < EXPERIENCIA_MIN) || 
+                           (registros[contRegistros][EXPERIENCIA] > EXPERIENCIA_MAX))
                         {
                             tipoCorrecto = false;
                             System.out.println(FUERA_RANGO + EXPERIENCIA_MIN + 
@@ -453,7 +458,7 @@ public class Proyecto_JBCN {
                 //Según el número de vuelta mostramos una cabecera distinta.
                 if(contImprimir < MIN_IMPRIMIR) //Vuelta 1 - Sin ordenar
                 {
-                    System.out.println("\n\t\t\tREGISTROS ENTRADOS");
+                    System.out.println("\n\t\t\t  REGISTROS ENTRADOS");
                     System.out.println("---------------------------------------"+
                                        "------------------------------------\n" +
                                        CABECERA + "\n" +
@@ -461,19 +466,20 @@ public class Proyecto_JBCN {
                                        "------------------------------------");
                 }else //Vuelta 2 - Ordenamos por experiencia.
                 {
-                    System.out.println("\n\t\tREGISTROS ORDENADOS POR EXPERIENCIA");
+                    System.out.printf("\n%52s\n","REGISTROS ORDENADOS POR EXPERIENCIA");
                     System.out.println("---------------------------------------"+
                                        "------------------------------------\n" +
                                        CABECERA + "\n" +
                                        "---------------------------------------"+
                                        "------------------------------------");
+                    
                 }                    
                 
                 //Recorremos opciones elegidas usuario y asignamos valor.
                 for(i = 0; i < contRegistros; i++)
                 {
                     //Asignamos valor array 'generos' a 'generoTipo'.
-                    switch(generos[i])
+                    switch(registros[i][GENERO])
                     {
                         case MUJER:
                             generoTipo = OP_MUJER;
@@ -489,7 +495,7 @@ public class Proyecto_JBCN {
                     } 
    
                     //Asignamos valor array 'participantes' a 'opcionParticipante'.
-                    switch(participantes[i])
+                    switch(registros[i][PARTICIPANTE])
                     {
                         case GENERAL:
                             opcionParticipante = OP_GENERAL;
@@ -508,7 +514,7 @@ public class Proyecto_JBCN {
                     }
 
                     //Asignamos valor array 'daSesiones' a 'sesion'.
-                     switch(daSesiones[i])
+                     switch(registros[i][SESION])
                     {
                         case SESION_MIN:
                             sesion = NO_SESION;                      
@@ -523,22 +529,22 @@ public class Proyecto_JBCN {
                     if(sesion == SI_SESION)//Si da sesión, mostramos los datos CON ID sesión
                     {              
                         // Si idSesión es < 10 añadimos un "0" delante para que muestre 2 dígitos
-                        if(idSesiones[i] < DOS_DIGITOS)
+                        if(registros[i][ID_SESION] < DOS_DIGITOS)
                         {
-                            System.out.println(codigos[i] + "\t\t" + generoTipo + 
-                                               opcionParticipante + sesion + "0" + idSesiones[i] + 
-                                               "\t\t" + anosExperiencia[i] + "\n"); 
+                            System.out.println(registros[i][CODIGO] + "\t\t" + generoTipo + 
+                                               opcionParticipante + sesion + "0" + registros[i][ID_SESION] + 
+                                               "\t\t" + registros[i][EXPERIENCIA] + "\n"); 
                         }else //si >10 no añadimos nada...
                         {                            
-                            System.out.println(codigos[i] + "\t\t" + generoTipo + 
-                                               opcionParticipante + sesion + idSesiones[i] + 
-                                               "\t\t" + anosExperiencia[i] + "\n");
+                            System.out.println(registros[i][CODIGO] + "\t\t" + generoTipo + 
+                                               opcionParticipante + sesion + registros[i][ID_SESION] + 
+                                               "\t\t" + registros[i][EXPERIENCIA] + "\n");
                         }                    
                     }else //Si NO da sesión, mostramos los datos SIN ID sesión
                     {                        
-                        System.out.println(codigos[i] + "\t\t" + generoTipo + 
+                        System.out.println(registros[i][CODIGO] + "\t\t" + generoTipo + 
                                            opcionParticipante + sesion + "\t\t" + 
-                                           anosExperiencia[i] + "\n");                     
+                                           registros[i][EXPERIENCIA] + "\n");                     
                     }
                     
                 }
@@ -590,42 +596,16 @@ public class Proyecto_JBCN {
                     // ORDENAMOS POR EXPERIENCIA 
                     
                     //Recorremos array y comparamos 'anosExperiencia[i]' con 'anosExperiencia[j]'.  
-                    for(i = 0; i < contRegistros - 1; i++)
+                     for(i = 0; i < contRegistros; i++)
                     {
                         for(j = i + 1; j < contRegistros; j++)
                         {
-                            //Evaluamos si 'anosExperiencia[i]' es > 'anosExperiencia[j].
-                            if(anosExperiencia[i] > anosExperiencia[j])
+                            //Evaluamos si 'anosExperiencia[i]' es > que 'anosExperiencia[j], si es así, realizamos el cambio.
+                            if(registros[i][EXPERIENCIA] > registros[j][EXPERIENCIA])
                             {
-                                //Ordenamos Código
-                                aux = codigos[i];
-                                codigos[i] = codigos[j];
-                                codigos[j] = aux;
-                                
-                                //Ordenamos Género
-                                aux = generos[i];
-                                generos[i] = generos[j];
-                                generos[j] = aux;
-                                
-                                //Ordenamos Tipo
-                                aux = participantes[i];
-                                participantes[i] = participantes[j];
-                                participantes[j] = aux;
-                                
-                                //Ordenamos da Sesión
-                                aux = daSesiones[i];
-                                daSesiones[i] = daSesiones[j];
-                                daSesiones[j] = aux;
-                                
-                                //Ordenamos ID Sesión
-                                aux = idSesiones[i];
-                                idSesiones[i] = idSesiones[j];
-                                idSesiones[j] = aux;
-                                                                
-                                //Ordenamos Experiencia                                
-                                aux = anosExperiencia[i];
-                                anosExperiencia[i] = anosExperiencia[j];
-                                anosExperiencia[j] = aux;                            
+                                aux = registros[i];
+                                registros[i] = registros[j];
+                                registros[j] = aux;
                             }
                         }
                     }
@@ -646,6 +626,82 @@ public class Proyecto_JBCN {
         {
            System.out.println("\nNo se ha registrado ningún participante."); 
         } 
+        
+        int porGenero = 0;
+        //Si se ha introducido mas de un registros preguntamos mostrar registros por género.
+        if(contRegistros > MIN_REGISTROS)
+        {            
+            entrada.nextLine();
+            do{
+                System.out.print("\n¿Quieres ver los registros por género y ponencia? Si(1)-No(0): ");
+                tipoCorrecto = entrada.hasNextInt();
+                if(tipoCorrecto)
+                {
+                    porGenero = entrada.nextInt();
+                    if((porGenero >= 0) && (porGenero <=1))
+                    {
+                        tipoCorrecto = true;
+                    }else
+                    {
+                        entrada.nextLine();
+                        System.out.println(FUERA_RANGO);                        
+                        tipoCorrecto = false;
+                    }
+                }else
+                {
+                    entrada.nextLine();
+                    System.out.println(NO_ENTERO);                    
+                }
+                
+            }while(!tipoCorrecto);
+            
+            if(porGenero == 1)
+            {
+                int contMujer = 0;
+                int contHombre = 0;
+                int contNoResponde = 0;
+                int contPonenteHombre = 0;
+                int contPonenteMujer = 0;
+                int contPonenteNoResponde = 0;
+                //Mostramos participantes por género
+                for(i = 0; i < registros.length; i++)
+                {
+                    if(registros[i][GENERO] == MUJER)
+                    {
+                        contMujer++;
+                        if(registros[i][SESION] == SESION_MAX)
+                        {
+                            contPonenteMujer++;
+                        }
+                    }else if(registros[i][GENERO] == HOMBRE)
+                    {
+                        contHombre++;
+                        if(registros[i][SESION] == SESION_MAX)
+                        {
+                            contPonenteHombre++;
+                        }
+                    }else if(registros[i][GENERO] == NO_RESPONDE)
+                    {
+                        contNoResponde++;
+                        if(registros[i][SESION] == SESION_MAX)
+                        {
+                            contPonenteNoResponde++;
+                        }
+                    }
+                }
+
+                System.out.println("\nParticipantes totales por género:\n" + 
+                                   " -Hombre ("+ contHombre + ")\n" + 
+                                   " -Mujer ("+ contMujer + ")\n" + 
+                                   " -Sin respuesta ("+ contNoResponde + ")\n");
+
+                System.out.println("\nParticipantes ponentes por género:\n" + 
+                                   " -Hombre ("+ contPonenteHombre + ")\n" + 
+                                   " -Mujer ("+ contPonenteMujer + ")\n" + 
+                                   " -Sin respuesta ("+ contPonenteNoResponde + ")\n");
+            }
+            
+        }
         
         // FIN DE LA EJECUCIÓN //
         
