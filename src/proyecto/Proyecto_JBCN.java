@@ -1,9 +1,12 @@
 //////////////////////////////////////////////////////////////////////
-// Autor: Proyecto Grupal                                           //    
-// Versión: 3.0                                                     //        
+// Autores: Proyecto Grupal                                         //
+//    - Ferrer Nieves, Vicenç.                                      //
+//    - Martyna Kasperek, Angelika.                                 //
+//    - Ruiz Martínez, Pedro A.                                     //
+// Versión: 4.0                                                     //        
 // Modificaciones (ENUNCIADO):                                      //
 //     - Opciones seleccionadas almacenadas en array bidimensional. //
-//     - Ordenado opciones seleccionadas por experiencia.           //
+//     - Muestra participantes y ponentes por género.               //
 //                                                                  //
 // Modificaciones própias (control duplicaciones y buffer):         //            
 //     - Impide que se dupliquen códigos de registro.               //    
