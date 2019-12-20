@@ -137,7 +137,7 @@ public class Proyecto_JBCN {
                 System.out.print("Entrada de datos\n" +
                                  "----------------\n" +
                                  "Código (100-2100):");
-                //Evaluamos si el código es entero y si cumple el rango.
+                //Evaluamos si el código es entero y si cumple el rango
                 tipoCorrecto = entrada.hasNextInt();
                 if(tipoCorrecto)
                 {           
