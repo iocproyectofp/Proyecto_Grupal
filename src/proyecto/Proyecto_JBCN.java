@@ -668,36 +668,38 @@ public class Proyecto_JBCN {
             //Si usuario elige mostrar participantes/ponentes por género
             if(porGenero == POR_GENERO_MAX)
             {                
-                //Mostramos participantes por género.
+                //Mostramos participantes por género
                 for(i = 0; i < registros.length; i++)
-                {
-                    //Si es mujer incrementamos 'contMujer'
-                    if(registros[i][GENERO] == MUJER)
+                {                    
+                    switch(registros[i][GENERO])
                     {
+                        //Si es mujer incrementamos 'contMujer'
+                        case MUJER: 
                         contMujer++;
                         //Si es mujer y ponente, incrementamos 'contPonenteMujer'
                         if(registros[i][SESION] == SESION_MAX)
                         {
                             contPonenteMujer++;
                         }
-                    //Si es hombre, incrementamos 'contHombre'    
-                    }else if(registros[i][GENERO] == HOMBRE)
-                    {
+                        break;
+                        //Si es hombre, incrementamos 'contHombre'    
+                        case HOMBRE:
                         contHombre++;
                         //Si es hombre y ponente, incrementamos 'contPonenteHombre'
                         if(registros[i][SESION] == SESION_MAX)
                         {
                             contPonenteHombre++;
                         }
-                    //Si no responde, incrementamos 'contNoResponde'    
-                    }else if(registros[i][GENERO] == NO_RESPONDE)
-                    {
+                        break;
+                        //Si no responde, incrementamos 'contNoResponde'    
+                        case NO_RESPONDE: 
                         contNoResponde++;
-                        //Si no responde y es ponente, incrementamos 'contPonenteNoResponde'
+                        //Si no responde y es ponente, incrementamos 'contPonenteNoResponde'.
                         if(registros[i][SESION] == SESION_MAX)
                         {
                             contPonenteNoResponde++;
                         }
+                        break;
                     }
                 }
                 //Imprimimos los resultados
