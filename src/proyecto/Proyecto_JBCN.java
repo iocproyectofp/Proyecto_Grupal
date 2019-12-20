@@ -126,7 +126,7 @@ public class Proyecto_JBCN {
         
         // INICIAMOS LA EJECUCIÓN //        
         
-        do //Se repetirá mientras "introducirMas" sea true y no superemos el maximo de registros
+        do //Se repetirá mientras "introducirMas" sea true y no superemos el maximo de registros.
         {
             introducirMas = false; //Por defecto no queremos introducir más registros.
             
