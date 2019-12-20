@@ -525,7 +525,7 @@ public class Proyecto_JBCN {
                     }
 
                     //Asignamos valor array 'daSesiones' a 'sesion'.
-                     switch(registros[i][SESION])
+                    switch(registros[i][SESION])
                     {
                         case SESION_MIN:
                             sesion = NO_SESION;                      
@@ -607,7 +607,7 @@ public class Proyecto_JBCN {
                     // ORDENAMOS POR EXPERIENCIA 
                     
                     //Recorremos array y comparamos 'anosExperiencia[i]' con 'anosExperiencia[j]'.  
-                     for(i = 0; i < contRegistros; i++)
+                    for(i = 0; i < contRegistros; i++)
                     {
                         for(j = i + 1; j < contRegistros; j++)
                         {
