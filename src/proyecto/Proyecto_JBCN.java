@@ -595,7 +595,7 @@ public class Proyecto_JBCN {
                 }   
 
                 //Evaluamos la respuesta del usuario en el ordenamiento de los registros
-                if(imprimir == OP_IMPRIMIR_MIN) // si no quiere ordenarlos, mostramos SIN ORDENAR y salimos bucle
+                if(imprimir == OP_IMPRIMIR_MIN) // si no quiere ordenarlos, mostramos SIN ORDENAR y salimos bucle.
                 {
                    tipoCorrecto = false; 
                 }
