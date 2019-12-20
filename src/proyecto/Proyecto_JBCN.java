@@ -104,7 +104,7 @@ public class Proyecto_JBCN {
         int contMujer, contHombre, contNoResponde, contPonenteHombre,
             contPonenteMujer, contPonenteNoResponde, porGenero = 0;;
         contMujer = contHombre = contNoResponde = contPonenteHombre =
-        contPonenteHombre = contPonenteMujer = contPonenteNoResponde = porGenero = 0;        
+        contPonenteMujer = contPonenteNoResponde = porGenero = 0;        
         
         //String
         String generoTipo, opcionParticipante, sesion;
