@@ -667,7 +667,7 @@ public class Proyecto_JBCN {
             
             if(porGenero == POR_GENERO_MAX)
             {                
-                //Mostramos participantes por género
+                //Mostramos participantes por género.
                 for(i = 0; i < registros.length; i++)
                 {
                     if(registros[i][GENERO] == MUJER)
