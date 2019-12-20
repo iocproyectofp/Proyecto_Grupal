@@ -128,7 +128,7 @@ public class Proyecto_JBCN {
         
         do //Se repetirá mientras "introducirMas" sea true y no superemos el maximo de registros
         {
-            introducirMas = false; //Por defecto no queremos introducir más registros
+            introducirMas = false; //Por defecto no queremos introducir más registros.
             
             // BLOQUE DE PREGUNTAS //  
             do //Repite mientras tipoCorrecto = false e intentos < MAX_INTENTOS
