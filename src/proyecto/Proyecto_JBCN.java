@@ -161,7 +161,8 @@ public class Proyecto_JBCN {
                     //Si el valor no esta duplicado, evaluamos rango
                     if(!duplicado)
                     {
-                        if((registros[contRegistros][CODIGO] < COD_MIN) || (registros[contRegistros][CODIGO] > COD_MAX))
+                        if((registros[contRegistros][CODIGO] < COD_MIN) || 
+                           (registros[contRegistros][CODIGO] > COD_MAX))
                         {
                             //Si no cumple el rango 
                             tipoCorrecto = false;
@@ -421,7 +422,8 @@ public class Proyecto_JBCN {
             
             //Preguntamos introducir más registros si 'contRegistros < MAXREGISTROS'.
             if(contRegistros < MAX_REGISTROS)
-            {                  
+            {    
+                entrada.nextLine(); //liberamos buffer
                 do //Repite mientras tipoCorrecto = false (en este punto, no evaluamos intentos).
                 {
                     System.out.print("\nIntroducir más registros SI(1) - NO(0):");
@@ -620,9 +622,11 @@ public class Proyecto_JBCN {
                             }
                         }
                     }
+                    
+                    // FIN ORDENAMIENTO 
                 } 
                 
-                // FIN ORDENAMIENTO 
+                    
                 
             }while((contImprimir < MAX_IMPRIMIR) && (tipoCorrecto)); 
             
@@ -675,31 +679,33 @@ public class Proyecto_JBCN {
                     {
                         //Si es mujer incrementamos 'contMujer'
                         case MUJER: 
-                        contMujer++;
-                        //Si es mujer y ponente, incrementamos 'contPonenteMujer'
-                        if(registros[i][SESION] == SESION_MAX)
-                        {
-                            contPonenteMujer++;
-                        }
-                        break;
+                            contMujer++;
+                            //Si es mujer y ponente, incrementamos 'contPonenteMujer'
+                            if(registros[i][SESION] == SESION_MAX)
+                            {
+                                contPonenteMujer++;
+                            }
+                            break;
+                            
                         //Si es hombre, incrementamos 'contHombre'    
                         case HOMBRE:
-                        contHombre++;
-                        //Si es hombre y ponente, incrementamos 'contPonenteHombre'
-                        if(registros[i][SESION] == SESION_MAX)
-                        {
-                            contPonenteHombre++;
-                        }
-                        break;
+                            contHombre++;
+                            //Si es hombre y ponente, incrementamos 'contPonenteHombre'
+                            if(registros[i][SESION] == SESION_MAX)
+                            {
+                                contPonenteHombre++;
+                            }
+                            break;
+                            
                         //Si no responde, incrementamos 'contNoResponde'    
                         case NO_RESPONDE: 
-                        contNoResponde++;
-                        //Si no responde y es ponente, incrementamos 'contPonenteNoResponde'.
-                        if(registros[i][SESION] == SESION_MAX)
-                        {
-                            contPonenteNoResponde++;
-                        }
-                        break;
+                            contNoResponde++;
+                            //Si no responde y es ponente, incrementamos 'contPonenteNoResponde'.
+                            if(registros[i][SESION] == SESION_MAX)
+                            {
+                                contPonenteNoResponde++;
+                            }
+                            break;
                     }
                 }
                 //Imprimimos los resultados
